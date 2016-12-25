@@ -20,7 +20,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         super.viewWillAppear(animated)
         
         let termViewController = TermViewController()
-        let tabOneBarItem = UITabBarItem(title: "Tab 1", image: UIImage(named: "Term"), selectedImage: UIImage(named: "selectedImage.png"))
+        let tabOneBarItem = UITabBarItem(title: "Tab 1", image: UIImage(named: "Calendar"), selectedImage: UIImage(named: "selectedImage.png"))
         termViewController.tabBarItem = tabOneBarItem
         
         let settingsViewController = SettingsViewController()
