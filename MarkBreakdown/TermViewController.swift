@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import RxSwift
 
-class ViewController: UIViewController {
+class TermViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        setupView()
     }
 
     override func didReceiveMemoryWarning() {
@@ -20,6 +21,10 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    private func setupView() {
+        title = "Term View Controller"
+        
+        view.backgroundColor = .red
+    }
 }
 
