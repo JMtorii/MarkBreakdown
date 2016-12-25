@@ -20,11 +20,18 @@ class TermViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    private func setupNavigationView() {
+//        let addButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style: UIBarButtonItemStyleBordered target:self action:@selector(addORDoneRows)];
+        
+//        let addButton = new UIBarButtonItem(
+//        [self.navigationItem setLeftBarButtonItem:addButton];
+    }
 
     private func setupView() {
         title = "Term View Controller"
         
-        view.backgroundColor = .red
+        view.backgroundColor = .white
     }
 }
 

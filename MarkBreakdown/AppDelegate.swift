@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        let rootViewController = TermViewController()
+        let rootViewController = MainTabBarController()
         let navigationController = UINavigationController()
         navigationController.viewControllers = [rootViewController]
         
