@@ -7,8 +7,18 @@
 //
 
 import Foundation
+import ObjectMapper
 
-struct Term {
-    let name: String
-    let year: Int
+class Term : Mappable {
+    var name: String?
+    var year: Int?
+    
+    required init?(map: Map) {
+        // Nothing to do here
+    }
+    
+    func mapping(map: Map) {
+        name        <- map["username"]
+        year        <- map["age"]
+    }
 }
