@@ -19,19 +19,23 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        // First tab
         let termViewController = TermViewController()
-        let tabOneBarItem = UITabBarItem(title: "Tab 1", image: UIImage(named: "Calendar"), selectedImage: UIImage(named: "selectedImage.png"))
-        termViewController.tabBarItem = tabOneBarItem
+        let tabOneNavigationController = UINavigationController(rootViewController: termViewController)
+        let tabOneBarItem = UITabBarItem(title: "Marks", image: UIImage(named: "Calendar"), selectedImage: UIImage(named: "selectedImage.png"))
+        tabOneNavigationController.tabBarItem = tabOneBarItem
         
+        // Second tab
         let settingsViewController = SettingsViewController()
-        let tabTwoBarItem = UITabBarItem(title: "Tab 2", image: UIImage(named: "Settings"), selectedImage: UIImage(named: "selectedImage.png"))
-        settingsViewController.tabBarItem = tabTwoBarItem
+        let tabTwoNavigationController = UINavigationController(rootViewController: settingsViewController)
+        let tabTwoBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "Settings"), selectedImage: UIImage(named: "selectedImage.png"))
+        tabTwoNavigationController.tabBarItem = tabTwoBarItem
         
-        viewControllers = [termViewController, settingsViewController]
+        viewControllers = [tabOneNavigationController, tabTwoNavigationController]
     }
     
     // UITabBarControllerDelegate method
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        print("Selected \(viewController.title!)")
+//        print("Selected \(viewController.title!)")
     }
 }

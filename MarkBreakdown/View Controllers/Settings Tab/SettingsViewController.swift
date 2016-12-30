@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
 class SettingsViewController: UIViewController {
     override func viewDidLoad() {
@@ -16,8 +17,6 @@ class SettingsViewController: UIViewController {
     }
     
     private func setupView() {
-        title = "Settings View Controller"
-        
-        view.backgroundColor = .blue
+        title = "Settings"
     }
 }
