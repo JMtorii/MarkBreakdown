@@ -8,21 +8,32 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
-class TermViewController: UIViewController {
+class TermViewController: UIViewController, UITableViewDelegate {
     
     private var tableView: UITableView!
     
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
 
+    
+    // MARK: View Controller lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        setupNavigationBar()
         setupView()
     }
     
-    private func setupNavigationView() {
+    
+    // MARK: Setup
+    
+    private func setupNavigationBar() {
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(TermViewController.addButtonTapped))
+        let editButton = self.editButtonItem
         
+        navigationItem.rightBarButtonItems = [addButton, editButton]
     }
 
     private func setupView() {
@@ -40,6 +51,34 @@ class TermViewController: UIViewController {
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[tableView]-0-|", options: .directionLeadingToTrailing, metrics: nil, views: ["tableView": tableView])))
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[tableView]-0-|", options: .directionLeadingToTrailing, metrics: nil, views: ["tableView": tableView])))
         NSLayoutConstraint.activate(layoutContraints)
+    }
+    
+    
+    // MARK: Navigation bar button actions
+    
+    func addButtonTapped(sender: UIButton) {
+        print("Add Button pressed")
+        let addTermViewController = AddTermViewController()
+        navigationController?.pushViewController(addTermViewController, animated: true)
+    }
+    
+    
+    // MARK: UITableView methods
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        tableView.isEditing = editing
+        
+        if editing {
+            // Nothing to do here?
+        }
+    }
+    
+    
+    // MARK: UITableViewDelegate
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
 }
 
