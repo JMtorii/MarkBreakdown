@@ -17,7 +17,8 @@
 		6CCE73901E16347B00A08F4B /* TermCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCE738F1E16347B00A08F4B /* TermCell.swift */; };
 		6CCE73931E16351C00A08F4B /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCE73921E16351C00A08F4B /* Term.swift */; };
 		B61858BF1E197AEE00D0ABAE /* DefaultEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61858BE1E197AEE00D0ABAE /* DefaultEmptyView.swift */; };
-		B61858C11E197EEC00D0ABAE /* Master.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61858C01E197EEC00D0ABAE /* Master.swift */; };
+		B61858C31E19AC2100D0ABAE /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61858C21E19AC2100D0ABAE /* Course.swift */; };
+		B61858C51E19B4D000D0ABAE /* Assessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61858C41E19B4D000D0ABAE /* Assessment.swift */; };
 		E4B125FAA9BC7778AECE0DE0 /* Pods_MarkBreakdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B4A4F1273F473507A36F235 /* Pods_MarkBreakdown.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,7 +37,8 @@
 		6CCE73921E16351C00A08F4B /* Term.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Term.swift; sourceTree = "<group>"; };
 		9B4A4F1273F473507A36F235 /* Pods_MarkBreakdown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MarkBreakdown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B61858BE1E197AEE00D0ABAE /* DefaultEmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultEmptyView.swift; sourceTree = "<group>"; };
-		B61858C01E197EEC00D0ABAE /* Master.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Master.swift; sourceTree = "<group>"; };
+		B61858C21E19AC2100D0ABAE /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
+		B61858C41E19B4D000D0ABAE /* Assessment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assessment.swift; sourceTree = "<group>"; };
 		F82F904E60A00BFEFA3BE8AD /* Pods-MarkBreakdown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarkBreakdown.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MarkBreakdown/Pods-MarkBreakdown.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -124,7 +126,8 @@
 			isa = PBXGroup;
 			children = (
 				6CCE73921E16351C00A08F4B /* Term.swift */,
-				B61858C01E197EEC00D0ABAE /* Master.swift */,
+				B61858C21E19AC2100D0ABAE /* Course.swift */,
+				B61858C41E19B4D000D0ABAE /* Assessment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -268,15 +271,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B61858C31E19AC2100D0ABAE /* Course.swift in Sources */,
 				B61858BF1E197AEE00D0ABAE /* DefaultEmptyView.swift in Sources */,
 				6C5363C81E0F6A10001ACB1B /* TermViewController.swift in Sources */,
 				6C5363C61E0F6A10001ACB1B /* AppDelegate.swift in Sources */,
 				6C1B29181E0F8AC8003F6DD5 /* MainTabBarController.swift in Sources */,
 				6CCE73901E16347B00A08F4B /* TermCell.swift in Sources */,
 				6CCE73931E16351C00A08F4B /* Term.swift in Sources */,
-				B61858C11E197EEC00D0ABAE /* Master.swift in Sources */,
 				6C1B291A1E0F8D0E003F6DD5 /* SettingsViewController.swift in Sources */,
 				6C1B29151E0F831E003F6DD5 /* AddTermViewController.swift in Sources */,
+				B61858C51E19B4D000D0ABAE /* Assessment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

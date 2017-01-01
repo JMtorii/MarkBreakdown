@@ -10,23 +10,23 @@ import Foundation
 import ObjectMapper
 
 class Term : Mappable {
-    var courseCode: String?
-    var courseName: String?
-    var maxPercentage: Int?
+    var termName: String?
+    var year: Int?
+    var courses = [Course]()
     
     required init?(map: Map) {
         // Nothing to do here
     }
     
-    init(courseCode: String, courseName: String, maxPercentage: Int) {
-        self.courseCode = courseCode
-        self.courseName = courseName
-        self.maxPercentage = maxPercentage
+    init(termName: String, year: Int, courses: [Course]) {
+        self.termName = termName
+        self.year = year
+        self.courses = courses
     }
     
     func mapping(map: Map) {
-        courseCode        <- map["courseCode"]
-        courseName        <- map["courseName"]
-        maxPercentage     <- map["maxPercentage"]
+        termName        <- map["termName"]
+        year            <- map["year"]
+        courses         <- map["courses"]
     }
 }
