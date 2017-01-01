@@ -9,8 +9,9 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import StatefulViewController
 
-class TermViewController: UIViewController, UITableViewDelegate {
+class TermViewController: UIViewController, StatefulViewController, UITableViewDelegate {
     
     private var tableView: UITableView!
     
@@ -23,7 +24,13 @@ class TermViewController: UIViewController, UITableViewDelegate {
         super.viewDidLoad()
 
         setupNavigationBar()
+        setupEmptyView()
         setupView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupInitialViewState()
     }
     
     
@@ -34,6 +41,10 @@ class TermViewController: UIViewController, UITableViewDelegate {
         let editButton = self.editButtonItem
         
         navigationItem.rightBarButtonItems = [addButton, editButton]
+    }
+    
+    private func setupEmptyView() {
+        emptyView = DefaultEmptyView(title: "You Have No Terms", subTitle: "Tap the + button to add a new term")
     }
 
     private func setupView() {
@@ -62,6 +73,12 @@ class TermViewController: UIViewController, UITableViewDelegate {
         navigationController?.pushViewController(addTermViewController, animated: true)
     }
     
+    
+    // MARK: StatefulViewController methods
+    
+    func hasContent() -> Bool {
+        return false
+    }
     
     // MARK: UITableView methods
     
