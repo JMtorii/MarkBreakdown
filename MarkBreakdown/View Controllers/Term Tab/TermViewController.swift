@@ -11,11 +11,11 @@ import RxSwift
 import RxCocoa
 import StatefulViewController
 
-class TermViewController: UIViewController, StatefulViewController, UITableViewDelegate {
+class TermViewController: UIViewController {
     
-    private var tableView: UITableView!
+    fileprivate var tableView: UITableView!
     
-    private let disposeBag = DisposeBag()
+    fileprivate let disposeBag = DisposeBag()
 
     
     // MARK: View Controller lifecycle
@@ -72,16 +72,19 @@ class TermViewController: UIViewController, StatefulViewController, UITableViewD
         let addTermViewController = AddTermViewController()
         navigationController?.pushViewController(addTermViewController, animated: true)
     }
-    
-    
-    // MARK: StatefulViewController methods
-    
+}
+
+
+// MARK: StatefulViewController delegates
+extension TermViewController: StatefulViewController {
     func hasContent() -> Bool {
         return false
     }
-    
-    // MARK: UITableView methods
-    
+}
+
+
+// MARK: UITableViewDelegate delegates
+extension TermViewController: UITableViewDelegate {
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         tableView.isEditing = editing
@@ -90,9 +93,6 @@ class TermViewController: UIViewController, StatefulViewController, UITableViewD
             // Nothing to do here?
         }
     }
-    
-    
-    // MARK: UITableViewDelegate
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
