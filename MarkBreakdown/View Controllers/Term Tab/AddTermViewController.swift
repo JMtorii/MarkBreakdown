@@ -14,6 +14,7 @@ class AddTermViewController: UIViewController {
     
     fileprivate var scrollView: UIScrollView!
     fileprivate var contentView: UIView!
+    fileprivate var stackView: UIStackView!
     fileprivate var descriptionLabel: UILabel!
     fileprivate var courseCodeTextField: SkyFloatingLabelTextField!
     fileprivate var courseNameTextField: SkyFloatingLabelTextField!
@@ -41,22 +42,25 @@ class AddTermViewController: UIViewController {
         navigationItem.rightBarButtonItems = [doneButton]
     }
     
-    // TODO: change to stackview
     private func setupView() {
         title = "Add a New Term"
         view.backgroundColor = .white
         
-//        edgesForExtendedLayout = [.bottom, .top]
-//        automaticallyAdjustsScrollViewInsets = false
-        
         scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-//        scrollView.contentInset = UIEdgeInsetsMake(0, 0, tabBarController?.tabBar.frame.height ?? 0, 0)
         view.addSubview(scrollView)
         
         contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(contentView)
+        
+        stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        stackView.spacing = 10.0
+        contentView.addSubview(stackView)
         
         descriptionLabel = UILabel()
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -66,7 +70,7 @@ class AddTermViewController: UIViewController {
         descriptionLabel.font = UIFont.systemFont(ofSize: 13, weight: UIFontWeightLight)
         descriptionLabel.textColor = .gray
         descriptionLabel.textAlignment = .center
-        contentView.addSubview(descriptionLabel)
+        stackView.addArrangedSubview(descriptionLabel)
         
         courseCodeTextField = SkyFloatingLabelTextField()
         courseCodeTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -75,7 +79,7 @@ class AddTermViewController: UIViewController {
         courseCodeTextField.returnKeyType = .done
         courseCodeTextField.delegate = self
         textFields.append(courseCodeTextField)
-        contentView.addSubview(courseCodeTextField)
+        stackView.addArrangedSubview(courseCodeTextField)
         
         courseNameTextField = SkyFloatingLabelTextField()
         courseNameTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -84,7 +88,7 @@ class AddTermViewController: UIViewController {
         courseNameTextField.returnKeyType = .done
         courseNameTextField.delegate = self
         textFields.append(courseNameTextField)
-        contentView.addSubview(courseNameTextField)
+        stackView.addArrangedSubview(courseNameTextField)
         
         maxPercentageTextField = SkyFloatingLabelTextField()
         maxPercentageTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -92,12 +96,12 @@ class AddTermViewController: UIViewController {
         maxPercentageTextField.title = "Max Mark Percentage"
         maxPercentageTextField.keyboardType = .numberPad
         textFields.append(maxPercentageTextField)
-        contentView.addSubview(maxPercentageTextField)
+        stackView.addArrangedSubview(maxPercentageTextField)
         
         testView = UIView()
         testView.translatesAutoresizingMaskIntoConstraints = false
         testView.backgroundColor = .blue
-        contentView.addSubview(testView)
+        stackView.addArrangedSubview(testView)
         
         setupConstraints() 
     }
@@ -107,6 +111,7 @@ class AddTermViewController: UIViewController {
         let views: [String: AnyObject] = ["view": view,
                                           "scrollView": scrollView,
                                           "contentView": contentView,
+                                          "stackView": stackView,
                                           "descriptionLabel": descriptionLabel,
                                           "courseCodeTextField": courseCodeTextField,
                                           "courseNameTextField": courseNameTextField,
@@ -116,16 +121,17 @@ class AddTermViewController: UIViewController {
         // horizontal
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|[scrollView]|", metrics: nil, views: views)))
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|[contentView(==view)]|", metrics: nil, views: views)))
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|-40-[descriptionLabel]-40-|", metrics: nil, views: views)))
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|-40-[courseCodeTextField]-40-|", metrics: nil, views: views)))
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|-40-[courseNameTextField]-40-|", metrics: nil, views: views)))
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|-40-[maxPercentageTextField]-40-|", metrics: nil, views: views)))
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|-40-[testView]-40-|", metrics: nil, views: views)))
+        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|-40-[stackView]-40-|", metrics: nil, views: views)))
         
         // vertical
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|[scrollView]|", metrics: nil, views: views)))
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|[contentView(==view@250)]|", metrics: nil, views: views)))
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|-40-[descriptionLabel]-10-[courseCodeTextField(40)]-20-[courseNameTextField(==courseCodeTextField)]-20-[maxPercentageTextField(==courseCodeTextField)]-20-[testView(==700)]-|", metrics: nil, views: views)))
+        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|[stackView]|", metrics: nil, views: views)))
+        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:[descriptionLabel(==80)]", metrics: nil, views: views)))
+        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:[courseCodeTextField(==50)]", metrics: nil, views: views)))
+        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:[courseNameTextField(==courseCodeTextField)]", metrics: nil, views: views)))
+        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:[maxPercentageTextField(==courseCodeTextField)]", metrics: nil, views: views)))
+        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:[testView(==700)]", metrics: nil, views: views)))
         
         NSLayoutConstraint.activate(layoutContraints)
     }
