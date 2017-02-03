@@ -37,7 +37,7 @@ class AddTermViewController: UIViewController {
     // MARK: Setup
     
     private func setupNavigationBar() {
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneNavBarTapped))
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneTapped(sender:)))
         
         navigationItem.rightBarButtonItems = [doneButton]
     }
@@ -80,7 +80,7 @@ class AddTermViewController: UIViewController {
         courseNameTextField = SkyFloatingLabelTextField()
         courseNameTextField.translatesAutoresizingMaskIntoConstraints = false
         courseNameTextField.placeholder = "Course Name"
-        courseNameTextField.title = "Code Name"
+        courseNameTextField.title = "Course Name"
         courseNameTextField.returnKeyType = .done
         courseNameTextField.delegate = self
         textFields.append(courseNameTextField)
@@ -91,7 +91,6 @@ class AddTermViewController: UIViewController {
         maxPercentageTextField.placeholder = "Max Mark Percentage"
         maxPercentageTextField.title = "Max Mark Percentage"
         maxPercentageTextField.keyboardType = .numberPad
-//        maxPercentageTextField.inputAccessoryView = keyboardToolbar()
         textFields.append(maxPercentageTextField)
         contentView.addSubview(maxPercentageTextField)
         
@@ -106,15 +105,13 @@ class AddTermViewController: UIViewController {
     private func setupConstraints() {
         var layoutContraints = [NSLayoutConstraint]()
         let views: [String: AnyObject] = ["view": view,
-                                          "topLayoutGuide": topLayoutGuide,
                                           "scrollView": scrollView,
                                           "contentView": contentView,
                                           "descriptionLabel": descriptionLabel,
                                           "courseCodeTextField": courseCodeTextField,
                                           "courseNameTextField": courseNameTextField,
                                           "maxPercentageTextField": maxPercentageTextField,
-                                          "testView": testView,
-                                          "bottomLayoutGuide": bottomLayoutGuide]
+                                          "testView": testView]
         
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|[scrollView]|", metrics: nil, views: views)))
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|[contentView(==view)]|", metrics: nil, views: views)))
@@ -146,7 +143,7 @@ class AddTermViewController: UIViewController {
         let fixedSpaceButton = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         
         // done button
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneToolbarTapped))
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneTapped(sender:)))
         
         // error check state
         guard let activeTextField = activeTextField else {
@@ -174,16 +171,35 @@ class AddTermViewController: UIViewController {
     
     // MARK: Selectors
     
-    func doneNavBarTapped(sender: UIButton) {
-//        let term: Term = Term(termName: courseCodeTextField.text!, year: courseNameTextField.text!, courses: Int(maxPercentageTextField.text!)!)
-//        
-//        if let navigationController = navigationController {
-//            navigationController.popViewController(animated: true)
-//        }
-    }
-    
-    func doneToolbarTapped(sender: AnyObject) {
+    func doneTapped(sender: AnyObject) {
         self.view.endEditing(true)
+        
+        var hasError = false
+        
+        if courseCodeTextField.text?.isEmpty ?? true {
+            courseCodeTextField.errorMessage = "Course Code Required"
+            hasError = true
+        }
+        
+        if courseNameTextField.text?.isEmpty ?? true {
+            courseNameTextField.errorMessage = "Course Name Required"
+            hasError = true
+        }
+        
+        if maxPercentageTextField.text?.isEmpty ?? true {
+            maxPercentageTextField.errorMessage = "Max Percentage Required"
+            hasError = true
+        }
+        
+        if hasError {
+            return;
+        }
+        
+        // TODO: create a new term
+        
+        if let navigationController = navigationController {
+            navigationController.popViewController(animated: true)
+        }
     }
     
     func previousButttonToolbarTapped(sender: AnyObject) {
