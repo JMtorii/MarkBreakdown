@@ -20,39 +20,9 @@ class AddTermViewController: UIViewController {
     fileprivate var maxPercentageTextField: SkyFloatingLabelTextField!
     fileprivate var testView: UIView!
     
-    fileprivate var textFields: [AnyObject] = []
     
-//    fileprivate lazy var inputToolbar: UIToolbar = {
-//        
-//        // Figure out if the textField is first or last
-//        var isFirst = false
-//        var isLast = false
-//        
-//        for case let textField as UITextField in self.textFields where textField.isFirstResponder {
-//            isFirst = textField == self.textFields[0] as? UITextField
-//            isLast = textField == self.textFields[self.textFields.count - 1] as? UITextField
-//        }
-//        
-//        var toolbar = UIToolbar()
-//        toolbar.barStyle = .default
-//        toolbar.isTranslucent = true
-//        toolbar.sizeToFit()
-//        
-//        var flexibleSpaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-//        var fixedSpaceButton = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-//        
-//        var previousButton  = UIBarButtonItem(image: UIImage(named: "Toolbar-Back"), style: .plain, target: self, action: #selector(AddTermViewController.previousButttonToolbarTapped))
-//        var nextButton  = UIBarButtonItem(image: UIImage(named: "Toolbar-Forward"), style: .plain, target: self, action: #selector(AddTermViewController.nextButtonToolbarTapped))
-//        nextButton.width = 50.0
-//        
-//        var doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(AddTermViewController.doneToolbarTapped))
-//        
-//        toolbar.setItems([fixedSpaceButton, previousButton, fixedSpaceButton, nextButton, flexibleSpaceButton, doneButton], animated: false)
-//        toolbar.isUserInteractionEnabled = true
-//        
-//        return toolbar
-//    }()
-
+    fileprivate var textFields: [AnyObject] = []
+    fileprivate var activeTextField: UITextField?
     
     
     // MARK: View Controller lifecycle
@@ -62,7 +32,6 @@ class AddTermViewController: UIViewController {
         
         setupNavigationBar()
         setupView()
-        findTextFields()
     }
     
     // MARK: Setup
@@ -105,6 +74,7 @@ class AddTermViewController: UIViewController {
         courseCodeTextField.title = "Course Code"
         courseCodeTextField.returnKeyType = .done
         courseCodeTextField.delegate = self
+        textFields.append(courseCodeTextField)
         contentView.addSubview(courseCodeTextField)
         
         courseNameTextField = SkyFloatingLabelTextField()
@@ -113,6 +83,7 @@ class AddTermViewController: UIViewController {
         courseNameTextField.title = "Code Name"
         courseNameTextField.returnKeyType = .done
         courseNameTextField.delegate = self
+        textFields.append(courseNameTextField)
         contentView.addSubview(courseNameTextField)
         
         maxPercentageTextField = SkyFloatingLabelTextField()
@@ -121,6 +92,7 @@ class AddTermViewController: UIViewController {
         maxPercentageTextField.title = "Max Mark Percentage"
         maxPercentageTextField.keyboardType = .numberPad
 //        maxPercentageTextField.inputAccessoryView = keyboardToolbar()
+        textFields.append(maxPercentageTextField)
         contentView.addSubview(maxPercentageTextField)
         
         testView = UIView()
@@ -129,13 +101,6 @@ class AddTermViewController: UIViewController {
         contentView.addSubview(testView)
         
         setupConstraints() 
-    }
-    
-    private func findTextFields() {
-        textFields = []
-        for case let textField as UITextField in self.contentView.subviews {
-            textFields.append(textField)
-        }
     }
     
     private func setupConstraints() {
@@ -166,39 +131,43 @@ class AddTermViewController: UIViewController {
         NSLayoutConstraint.activate(layoutContraints)
     }
     
+    // TODO: Move elsewhere
+    // TODO: Optimize, we create this every single time a textfield is selected
     func keyboardToolbar() -> UIToolbar {
-        // Figure out if the textField is first or last
-        var isFirst = false
-        var isLast = false
-        
-        for case let textField as UITextField in self.textFields where textField.isFirstResponder {
-            isFirst = textField == self.textFields[0] as? UITextField
-            isLast = textField == self.textFields[self.textFields.count - 1] as? UITextField
-        }
-        
+        // toolbar
         let toolbar = UIToolbar()
-        
         toolbar.barStyle = .default
         toolbar.isTranslucent = true
         toolbar.sizeToFit()
+        toolbar.isUserInteractionEnabled = true
         
+        // spacers
         let flexibleSpaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let fixedSpaceButton = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         
-        let previousButton  = UIBarButtonItem(image: UIImage(named: "Toolbar-Back"), style: .plain, target: self, action: #selector(AddTermViewController.previousButttonToolbarTapped))
-        if isFirst {
-            previousButton.isEnabled = false
+        // done button
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneToolbarTapped))
+        
+        // error check state
+        guard let activeTextField = activeTextField else {
+            // toolbar with done button only
+            toolbar.setItems([flexibleSpaceButton, doneButton], animated: false)
+            return toolbar
         }
         
+        // Figure out if the textField is first or last
+        let isFirst = activeTextField == textFields[0] as? UITextField
+        let isLast = activeTextField == textFields[self.textFields.count - 1] as? UITextField
         
-        let nextButton  = UIBarButtonItem(image: UIImage(named: "Toolbar-Forward"), style: .plain, target: self, action: #selector(AddTermViewController.nextButtonToolbarTapped))
-        nextButton.width = 50.0
+        // previousButton
+        let previousButton = UIBarButtonItem(image: UIImage(named: "Toolbar-Back"), style: .plain, target: self, action: #selector(previousButttonToolbarTapped))
+        previousButton.isEnabled = !isFirst
         
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(AddTermViewController.doneToolbarTapped))
+        // nextButton
+        let nextButton = UIBarButtonItem(image: UIImage(named: "Toolbar-Forward"), style: .plain, target: self, action: #selector(nextButtonToolbarTapped))
+        nextButton.isEnabled = !isLast
         
         toolbar.setItems([fixedSpaceButton, previousButton, fixedSpaceButton, nextButton, flexibleSpaceButton, doneButton], animated: false)
-        toolbar.isUserInteractionEnabled = true
-        
         return toolbar
     }
     
@@ -220,15 +189,17 @@ class AddTermViewController: UIViewController {
     func previousButttonToolbarTapped(sender: AnyObject) {
         print("Previous button pressed")
         
-        for case let textField as UITextField in textFields where textField.isFirstResponder {
-            if textField == textFields[0] as? UITextField {
-                
-            }
+        if let activeTextField = activeTextField, let index = textFields.index(where: {$0 === activeTextField}), index != textFields.startIndex {
+            _ = textFields[index - 1].becomeFirstResponder()
         }
     }
 
     func nextButtonToolbarTapped(sender: AnyObject) {
         print("Next button pressed")
+        
+        if let activeTextField = activeTextField, let index = textFields.index(where: {$0 === activeTextField}), index != textFields.endIndex {
+            _ = textFields[index + 1].becomeFirstResponder()
+        }
     }
 }
 
@@ -236,11 +207,11 @@ class AddTermViewController: UIViewController {
 // MARK: UITextFieldDelegate
 extension AddTermViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        textField.resignFirstResponder()
         return false;
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        activeTextField = textField;
         textField.inputAccessoryView = keyboardToolbar()
         return true
     }
