@@ -14,6 +14,7 @@
 		6C5363C61E0F6A10001ACB1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5363C51E0F6A10001ACB1B /* AppDelegate.swift */; };
 		6C5363C81E0F6A10001ACB1B /* TermViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5363C71E0F6A10001ACB1B /* TermViewController.swift */; };
 		6C5363D01E0F6A10001ACB1B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C5363CE1E0F6A10001ACB1B /* LaunchScreen.storyboard */; };
+		6CBA40821E451DB600F5E2B6 /* BaseAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBA40811E451DB600F5E2B6 /* BaseAddViewController.swift */; };
 		6CCE73901E16347B00A08F4B /* TermCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCE738F1E16347B00A08F4B /* TermCell.swift */; };
 		6CCE73931E16351C00A08F4B /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCE73921E16351C00A08F4B /* Term.swift */; };
 		B61858BF1E197AEE00D0ABAE /* DefaultEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61858BE1E197AEE00D0ABAE /* DefaultEmptyView.swift */; };
@@ -33,6 +34,7 @@
 		6C5363C71E0F6A10001ACB1B /* TermViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermViewController.swift; sourceTree = "<group>"; };
 		6C5363CF1E0F6A10001ACB1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6C5363D11E0F6A10001ACB1B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6CBA40811E451DB600F5E2B6 /* BaseAddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseAddViewController.swift; sourceTree = "<group>"; };
 		6CCE738F1E16347B00A08F4B /* TermCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermCell.swift; sourceTree = "<group>"; };
 		6CCE73921E16351C00A08F4B /* Term.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Term.swift; sourceTree = "<group>"; };
 		9B4A4F1273F473507A36F235 /* Pods_MarkBreakdown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MarkBreakdown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,6 +59,7 @@
 		6C1B29161E0F832D003F6DD5 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				6CBA40801E451D7800F5E2B6 /* Base View Controllers */,
 				6C1B29171E0F8AC8003F6DD5 /* MainTabBarController.swift */,
 				6C27716C1E160100006EE2A2 /* Term Tab */,
 				6C27716D1E16012C006EE2A2 /* Settings Tab */,
@@ -111,6 +114,14 @@
 				6C1B291B1E0F92D3003F6DD5 /* Assets.xcassets */,
 			);
 			path = MarkBreakdown;
+			sourceTree = "<group>";
+		};
+		6CBA40801E451D7800F5E2B6 /* Base View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6CBA40811E451DB600F5E2B6 /* BaseAddViewController.swift */,
+			);
+			path = "Base View Controllers";
 			sourceTree = "<group>";
 		};
 		6CCE738E1E16343F00A08F4B /* Views */ = {
@@ -275,6 +286,7 @@
 				B61858BF1E197AEE00D0ABAE /* DefaultEmptyView.swift in Sources */,
 				6C5363C81E0F6A10001ACB1B /* TermViewController.swift in Sources */,
 				6C5363C61E0F6A10001ACB1B /* AppDelegate.swift in Sources */,
+				6CBA40821E451DB600F5E2B6 /* BaseAddViewController.swift in Sources */,
 				6C1B29181E0F8AC8003F6DD5 /* MainTabBarController.swift in Sources */,
 				6CCE73901E16347B00A08F4B /* TermCell.swift in Sources */,
 				6CCE73931E16351C00A08F4B /* Term.swift in Sources */,

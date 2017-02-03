@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import SkyFloatingLabelTextField
 
-class AddTermViewController: UIViewController {
+class AddTermViewController: BaseAddViewController {
     
     fileprivate var scrollView: UIScrollView!
     fileprivate var contentView: UIView!
@@ -21,28 +21,17 @@ class AddTermViewController: UIViewController {
     fileprivate var maxPercentageTextField: SkyFloatingLabelTextField!
     fileprivate var testView: UIView!
     
-    fileprivate var textFields: [AnyObject] = []
-    fileprivate var activeTextField: UITextField?
-    
     
     // MARK: View Controller lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupNavigationBar()
-        setupView()
     }
+    
     
     // MARK: Setup
     
-    private func setupNavigationBar() {
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneTapped(sender:)))
-        
-        navigationItem.rightBarButtonItems = [doneButton]
-    }
-    
-    private func setupView() {
+    override func setupView() {
         title = "Add a New Term"
         view.backgroundColor = .white
         
@@ -103,10 +92,10 @@ class AddTermViewController: UIViewController {
         testView.backgroundColor = .blue
         stackView.addArrangedSubview(testView)
         
-        setupConstraints() 
+        super.setupView()
     }
     
-    private func setupConstraints() {
+    override func setupConstraints() {
         var layoutContraints = [NSLayoutConstraint]()
         let views: [String: AnyObject] = ["view": view,
                                           "scrollView": scrollView,
@@ -136,66 +125,7 @@ class AddTermViewController: UIViewController {
         NSLayoutConstraint.activate(layoutContraints)
     }
     
-    // TODO: Move elsewhere
-    // TODO: Optimize, we create this every single time a textfield is selected
-    func keyboardToolbar() -> UIToolbar {
-        // toolbar
-        let toolbar = UIToolbar()
-        toolbar.barStyle = .default
-        toolbar.isTranslucent = true
-        toolbar.sizeToFit()
-        toolbar.isUserInteractionEnabled = true
-        
-        // spacers
-        let flexibleSpaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let fixedSpaceButton = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        
-        // done button
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneTapped(sender:)))
-        
-        // error check state
-        guard let activeTextField = activeTextField else {
-            // toolbar with done button only
-            toolbar.setItems([flexibleSpaceButton, doneButton], animated: false)
-            return toolbar
-        }
-        
-        // Figure out if the textField is first or last
-        let isFirst = activeTextField == textFields[0] as? UITextField
-        let isLast = activeTextField == textFields[self.textFields.count - 1] as? UITextField
-        
-        // previousButton
-        let previousButton = UIBarButtonItem(image: UIImage(named: "Toolbar-Back"), style: .plain, target: self, action: #selector(previousButttonToolbarTapped))
-        previousButton.isEnabled = !isFirst
-        
-        // nextButton
-        let nextButton = UIBarButtonItem(image: UIImage(named: "Toolbar-Forward"), style: .plain, target: self, action: #selector(nextButtonToolbarTapped))
-        nextButton.isEnabled = !isLast
-        
-        toolbar.setItems([fixedSpaceButton, previousButton, fixedSpaceButton, nextButton, flexibleSpaceButton, doneButton], animated: false)
-        return toolbar
-    }
-    
-    
-    // MARK: Selectors
-    
-    func previousButttonToolbarTapped(sender: AnyObject) {
-        print("Previous button pressed")
-        
-        if let activeTextField = activeTextField, let index = textFields.index(where: {$0 === activeTextField}), index != textFields.startIndex {
-            _ = textFields[index - 1].becomeFirstResponder()
-        }
-    }
-
-    func nextButtonToolbarTapped(sender: AnyObject) {
-        print("Next button pressed")
-        
-        if let activeTextField = activeTextField, let index = textFields.index(where: {$0 === activeTextField}), index != textFields.endIndex {
-            _ = textFields[index + 1].becomeFirstResponder()
-        }
-    }
-    
-    func doneTapped(sender: AnyObject) {
+    override func doneTapped() {
         self.view.endEditing(true)
         
         var hasError = false
@@ -224,19 +154,5 @@ class AddTermViewController: UIViewController {
         if let navigationController = navigationController {
             navigationController.popViewController(animated: true)
         }
-    }
-}
-
-
-// MARK: UITextFieldDelegate
-extension AddTermViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return false;
-    }
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        activeTextField = textField;
-        textField.inputAccessoryView = keyboardToolbar()
-        return true
     }
 }
