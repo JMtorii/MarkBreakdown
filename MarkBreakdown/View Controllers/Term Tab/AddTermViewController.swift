@@ -16,17 +16,8 @@ class AddTermViewController: BaseAddViewController {
     fileprivate var contentView: UIView!
     fileprivate var stackView: UIStackView!
     fileprivate var descriptionLabel: UILabel!
-    fileprivate var courseCodeTextField: SkyFloatingLabelTextField!
-    fileprivate var courseNameTextField: SkyFloatingLabelTextField!
-    fileprivate var maxPercentageTextField: SkyFloatingLabelTextField!
-    fileprivate var testView: UIView!
-    
-    
-    // MARK: View Controller lifecycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    fileprivate var termNameTextField: SkyFloatingLabelTextField!
+    fileprivate var yearTextField: SkyFloatingLabelTextField!
     
     
     // MARK: Setup
@@ -48,7 +39,7 @@ class AddTermViewController: BaseAddViewController {
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.alignment = .fill
-        stackView.spacing = 10.0
+        stackView.spacing = 20.0
         contentView.addSubview(stackView)
         
         descriptionLabel = UILabel()
@@ -61,36 +52,22 @@ class AddTermViewController: BaseAddViewController {
         descriptionLabel.textAlignment = .center
         stackView.addArrangedSubview(descriptionLabel)
         
-        courseCodeTextField = SkyFloatingLabelTextField()
-        courseCodeTextField.translatesAutoresizingMaskIntoConstraints = false
-        courseCodeTextField.placeholder = "Course Code"
-        courseCodeTextField.title = "Course Code"
-        courseCodeTextField.returnKeyType = .done
-        courseCodeTextField.delegate = self
-        textFields.append(courseCodeTextField)
-        stackView.addArrangedSubview(courseCodeTextField)
+        termNameTextField = SkyFloatingLabelTextField()
+        termNameTextField.translatesAutoresizingMaskIntoConstraints = false
+        termNameTextField.placeholder = "Term Name"
+        termNameTextField.title = "Term Name"
+        termNameTextField.returnKeyType = .done
+        termNameTextField.delegate = self
+        textFields.append(termNameTextField)
+        stackView.addArrangedSubview(termNameTextField)
         
-        courseNameTextField = SkyFloatingLabelTextField()
-        courseNameTextField.translatesAutoresizingMaskIntoConstraints = false
-        courseNameTextField.placeholder = "Course Name"
-        courseNameTextField.title = "Course Name"
-        courseNameTextField.returnKeyType = .done
-        courseNameTextField.delegate = self
-        textFields.append(courseNameTextField)
-        stackView.addArrangedSubview(courseNameTextField)
-        
-        maxPercentageTextField = SkyFloatingLabelTextField()
-        maxPercentageTextField.translatesAutoresizingMaskIntoConstraints = false
-        maxPercentageTextField.placeholder = "Max Mark Percentage"
-        maxPercentageTextField.title = "Max Mark Percentage"
-        maxPercentageTextField.keyboardType = .numberPad
-        textFields.append(maxPercentageTextField)
-        stackView.addArrangedSubview(maxPercentageTextField)
-        
-        testView = UIView()
-        testView.translatesAutoresizingMaskIntoConstraints = false
-        testView.backgroundColor = .blue
-        stackView.addArrangedSubview(testView)
+        yearTextField = SkyFloatingLabelTextField()
+        yearTextField.translatesAutoresizingMaskIntoConstraints = false
+        yearTextField.placeholder = "Max Mark Percentage"
+        yearTextField.title = "Max Mark Percentage"
+        yearTextField.keyboardType = .numberPad
+        textFields.append(yearTextField)
+        stackView.addArrangedSubview(yearTextField)
         
         super.setupView()
     }
@@ -102,10 +79,8 @@ class AddTermViewController: BaseAddViewController {
                                           "contentView": contentView,
                                           "stackView": stackView,
                                           "descriptionLabel": descriptionLabel,
-                                          "courseCodeTextField": courseCodeTextField,
-                                          "courseNameTextField": courseNameTextField,
-                                          "maxPercentageTextField": maxPercentageTextField,
-                                          "testView": testView]
+                                          "termNameTextField": termNameTextField,
+                                          "yearTextField": yearTextField]
         
         // horizontal
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|[scrollView]|", metrics: nil, views: views)))
@@ -117,10 +92,8 @@ class AddTermViewController: BaseAddViewController {
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|[contentView(==view@250)]|", metrics: nil, views: views)))
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|[stackView]|", metrics: nil, views: views)))
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:[descriptionLabel(==80)]", metrics: nil, views: views)))
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:[courseCodeTextField(==50)]", metrics: nil, views: views)))
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:[courseNameTextField(==courseCodeTextField)]", metrics: nil, views: views)))
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:[maxPercentageTextField(==courseCodeTextField)]", metrics: nil, views: views)))
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:[testView(==700)]", metrics: nil, views: views)))
+        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:[termNameTextField(==50)]", metrics: nil, views: views)))
+        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:[yearTextField(==termNameTextField)]", metrics: nil, views: views)))
         
         NSLayoutConstraint.activate(layoutContraints)
     }
@@ -130,18 +103,13 @@ class AddTermViewController: BaseAddViewController {
         
         var hasError = false
         
-        if courseCodeTextField.text?.isEmpty ?? true {
-            courseCodeTextField.errorMessage = "Course Code Required"
+        if termNameTextField.text?.isEmpty ?? true {
+            termNameTextField.errorMessage = "Term Name Required"
             hasError = true
         }
         
-        if courseNameTextField.text?.isEmpty ?? true {
-            courseNameTextField.errorMessage = "Course Name Required"
-            hasError = true
-        }
-        
-        if maxPercentageTextField.text?.isEmpty ?? true {
-            maxPercentageTextField.errorMessage = "Max Percentage Required"
+        if yearTextField.text?.isEmpty ?? true {
+            yearTextField.errorMessage = "Year Required"
             hasError = true
         }
         
