@@ -20,7 +20,6 @@ class AddTermViewController: UIViewController {
     fileprivate var maxPercentageTextField: SkyFloatingLabelTextField!
     fileprivate var testView: UIView!
     
-    
     fileprivate var textFields: [AnyObject] = []
     fileprivate var activeTextField: UITextField?
     
@@ -42,6 +41,7 @@ class AddTermViewController: UIViewController {
         navigationItem.rightBarButtonItems = [doneButton]
     }
     
+    // TODO: change to stackview
     private func setupView() {
         title = "Add a New Term"
         view.backgroundColor = .white
@@ -51,7 +51,7 @@ class AddTermViewController: UIViewController {
         
         scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.contentInset = UIEdgeInsetsMake(0, 0, (tabBarController?.tabBar.frame.height)!, 0)       // TODO: safety unwrap
+//        scrollView.contentInset = UIEdgeInsetsMake(0, 0, tabBarController?.tabBar.frame.height ?? 0, 0)
         view.addSubview(scrollView)
         
         contentView = UIView()
@@ -113,6 +113,7 @@ class AddTermViewController: UIViewController {
                                           "maxPercentageTextField": maxPercentageTextField,
                                           "testView": testView]
         
+        // horizontal
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|[scrollView]|", metrics: nil, views: views)))
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|[contentView(==view)]|", metrics: nil, views: views)))
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|-40-[descriptionLabel]-40-|", metrics: nil, views: views)))
@@ -121,9 +122,10 @@ class AddTermViewController: UIViewController {
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|-40-[maxPercentageTextField]-40-|", metrics: nil, views: views)))
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|-40-[testView]-40-|", metrics: nil, views: views)))
         
+        // vertical
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|[scrollView]|", metrics: nil, views: views)))
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|[contentView(==view@250)]|", metrics: nil, views: views)))
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|-40-[descriptionLabel]-10-[courseCodeTextField(40)]-20-[courseNameTextField(==courseCodeTextField)]-20-[maxPercentageTextField(==courseCodeTextField)]-20-[testView(==450)]", metrics: nil, views: views)))
+        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|-40-[descriptionLabel]-10-[courseCodeTextField(40)]-20-[courseNameTextField(==courseCodeTextField)]-20-[maxPercentageTextField(==courseCodeTextField)]-20-[testView(==700)]-|", metrics: nil, views: views)))
         
         NSLayoutConstraint.activate(layoutContraints)
     }
@@ -171,6 +173,22 @@ class AddTermViewController: UIViewController {
     
     // MARK: Selectors
     
+    func previousButttonToolbarTapped(sender: AnyObject) {
+        print("Previous button pressed")
+        
+        if let activeTextField = activeTextField, let index = textFields.index(where: {$0 === activeTextField}), index != textFields.startIndex {
+            _ = textFields[index - 1].becomeFirstResponder()
+        }
+    }
+
+    func nextButtonToolbarTapped(sender: AnyObject) {
+        print("Next button pressed")
+        
+        if let activeTextField = activeTextField, let index = textFields.index(where: {$0 === activeTextField}), index != textFields.endIndex {
+            _ = textFields[index + 1].becomeFirstResponder()
+        }
+    }
+    
     func doneTapped(sender: AnyObject) {
         self.view.endEditing(true)
         
@@ -199,22 +217,6 @@ class AddTermViewController: UIViewController {
         
         if let navigationController = navigationController {
             navigationController.popViewController(animated: true)
-        }
-    }
-    
-    func previousButttonToolbarTapped(sender: AnyObject) {
-        print("Previous button pressed")
-        
-        if let activeTextField = activeTextField, let index = textFields.index(where: {$0 === activeTextField}), index != textFields.startIndex {
-            _ = textFields[index - 1].becomeFirstResponder()
-        }
-    }
-
-    func nextButtonToolbarTapped(sender: AnyObject) {
-        print("Next button pressed")
-        
-        if let activeTextField = activeTextField, let index = textFields.index(where: {$0 === activeTextField}), index != textFields.endIndex {
-            _ = textFields[index + 1].becomeFirstResponder()
         }
     }
 }
