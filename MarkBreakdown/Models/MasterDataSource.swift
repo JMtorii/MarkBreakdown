@@ -13,12 +13,15 @@ import RxSwift
 
 class MasterDataSource {
     
-    static let sharedMasterDataSource = MasterDataSource(terms: [])
+    static let sharedInstance : MasterDataSource = {
+        let instance = MasterDataSource(terms: []);
+        return instance;
+    }()
     
-    var terms: Variable<[Term]> = Variable([])
+    var terms: [Term] = []
     
-    init(terms: [Term]) {
-        self.terms = Variable(terms)
+    private init(terms: [Term]) {
+        self.terms = terms
     }
     
 }

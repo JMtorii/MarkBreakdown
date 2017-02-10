@@ -26,6 +26,7 @@ class TermViewController: UIViewController {
         setupNavigationBar()
         setupEmptyView()
         setupView()
+        setupCellConfiguration()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,6 +58,23 @@ class TermViewController: UIViewController {
         setupContraints()
     }
     
+    private func setupCellConfiguration() {
+        let items = Observable.just(
+            (0..<20).map { "\($0)" }
+        )
+        
+        items
+            .bindTo(tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (row, element, cell) in
+                cell.textLabel?.text = "\(element) @ row \(row)"
+            }
+            .disposed(by: disposeBag)
+        
+        Observable.just(MasterDataSource.sharedInstance.terms)
+            .bindTo(tableView.rx.items(cellIdentifier: TermCell.Identifier, cellType: TermCell.self)) { (row, element, cell) in
+                
+        }.disposed(by: disposeBag)
+    }
+    
     private func setupContraints() {
         var layoutContraints = [NSLayoutConstraint]()
         let views: [String: AnyObject] = ["tableView": tableView]
@@ -85,18 +103,18 @@ extension TermViewController: StatefulViewController {
 
 
 // MARK: UITableViewDelegate delegates
-extension TermViewController: UITableViewDelegate {
-    override func setEditing(_ editing: Bool, animated: Bool) {
-        super.setEditing(editing, animated: animated)
-        tableView.isEditing = editing
-        
-        if editing {
-            // Nothing to do here?
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
-    }
-}
+//extension TermViewController: UITableViewDelegate {
+//    override func setEditing(_ editing: Bool, animated: Bool) {
+//        super.setEditing(editing, animated: animated)
+//        tableView.isEditing = editing
+//        
+//        if editing {
+//            // Nothing to do here?
+//        }
+//    }
+//    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 60
+//    }
+//}
 

@@ -12,8 +12,8 @@ import UIKit
 class TermCell: UITableViewCell {
     static let Identifier = "TermCell"
     
-    var courseCodeLabel: UILabel!
-    var courseNameLabel: UILabel!
+    var termNameLabel: UILabel!
+    var yearLabel: UILabel!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -24,29 +24,39 @@ class TermCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupView() {
-        courseCodeLabel = UILabel()
-        courseCodeLabel.translatesAutoresizingMaskIntoConstraints = false
-        courseCodeLabel.font = UIFont.systemFont(ofSize: 20, weight: UIFontWeightBold)
-        courseCodeLabel.textColor = .gray
-        contentView.addSubview(courseCodeLabel)
+    func configureWithTerm(term: Term) {
+        if let termName = term.termName {
+            termNameLabel.text = termName
+        }
         
-        courseNameLabel = UILabel()
-        courseNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(courseNameLabel)
+        if let year = term.year {
+            yearLabel.text = "\(year)"
+        }
+    }
+    
+    private func setupView() {
+        termNameLabel = UILabel()
+        termNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        termNameLabel.font = UIFont.systemFont(ofSize: 20, weight: UIFontWeightBold)
+        termNameLabel.textColor = .gray
+        contentView.addSubview(termNameLabel)
+        
+        yearLabel = UILabel()
+        yearLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(yearLabel)
         
         setupContraints()
     }
     
     private func setupContraints() {
         var layoutContraints = [NSLayoutConstraint]()
-        let views: [String: AnyObject] = ["courseCodeLabel": courseCodeLabel,
-                                          "courseNameLabel": courseNameLabel]
+        let views: [String: AnyObject] = ["termNameLabel": termNameLabel,
+                                          "yearLabel": yearLabel]
         
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[courseCodeLabel]-20-[courseNameLabel]-20-|", options: .directionLeadingToTrailing, metrics: nil, views: views)))
+        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[termNameLabel]-20-[yearLabel]-20-|", options: .directionLeadingToTrailing, metrics: nil, views: views)))
         
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|-10-[courseCodeLabel(40)]-10-|", options: .directionLeadingToTrailing, metrics: nil, views: views)))
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|-10-[courseNameLabel(40)]-10-|", options: .directionLeadingToTrailing, metrics: nil, views: views)))
+        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|-10-[termNameLabel(40)]-10-|", options: .directionLeadingToTrailing, metrics: nil, views: views)))
+        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|-10-[termNameLabel(40)]-10-|", options: .directionLeadingToTrailing, metrics: nil, views: views)))
 
         
         NSLayoutConstraint.activate(layoutContraints)
