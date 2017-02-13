@@ -53,6 +53,9 @@ class TermViewController: UIViewController {
         
         tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 70.0;
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
         view.addSubview(tableView)
         
         setupContraints()
