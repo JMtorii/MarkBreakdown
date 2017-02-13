@@ -119,7 +119,10 @@ class AddTermViewController: BaseAddViewController {
         
         // TODO: create a new term
         
-        if let navigationController = navigationController {
+        if let navigationController = navigationController, let termName = termNameTextField.text, let year = yearTextField.text, let intYear = Int(year) {
+            let term: Term = Term(termName: termName, year: intYear, courses: [])
+            MasterDataSource.sharedInstance.terms.value.append(term)
+            
             navigationController.popViewController(animated: true)
         }
     }
