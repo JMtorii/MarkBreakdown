@@ -34,6 +34,12 @@ class TermViewController: BaseTableViewController {
         }.addDisposableTo(disposeBag)
     }
     
+    override func setupCellTapped() {
+        tableView.rx.modelSelected(Term.self).subscribe(onNext: { term in
+            // Do stuff here
+        }).addDisposableTo(disposeBag)
+    }
+    
     override func addButtonTapped(sender: UIButton) {
         print("Add Button pressed")
         let addTermViewController = AddTermViewController()

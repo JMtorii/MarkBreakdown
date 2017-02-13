@@ -24,6 +24,7 @@ class BaseTableViewController: UIViewController {
         setupEmptyView()
         setupView()
         setupCellConfiguration()
+        setupCellTapped()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,6 +58,10 @@ class BaseTableViewController: UIViewController {
     }
     
     func setupCellConfiguration() {
+        // Nothing to do here
+    }
+    
+    func setupCellTapped() {
         // Nothing to do here
     }
     
