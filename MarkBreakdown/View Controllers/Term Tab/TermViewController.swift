@@ -18,7 +18,7 @@ class TermViewController: BaseTableViewController {
     }
     
     override func setupView() {
-        title = "Marks"
+        title = "Terms"
         
         super.setupView()
     }
