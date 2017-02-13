@@ -24,6 +24,14 @@ class TermCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        termNameLabel.text = ""
+        yearLabel.text = ""
+    }
+    
     func configureWithTerm(term: Term) {
         if let termName = term.termName {
             termNameLabel.text = termName

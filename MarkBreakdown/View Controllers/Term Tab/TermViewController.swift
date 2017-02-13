@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  TermViewController.swift
 //  MarkBreakdown
 //
 //  Created by Mark Torii on 2016-12-24.
@@ -59,20 +59,14 @@ class TermViewController: UIViewController {
     }
     
     private func setupCellConfiguration() {
-        let items = Observable.just(
-            (0..<20).map { "\($0)" }
-        )
+        let testTerm = Term(termName: "Test Term", year: 2017, courses: [])
+        MasterDataSource.sharedInstance.terms.value.append(testTerm)
         
-        items
-            .bindTo(tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (row, element, cell) in
-                cell.textLabel?.text = "\(element) @ row \(row)"
-            }
-            .disposed(by: disposeBag)
+        tableView.register(TermCell.self, forCellReuseIdentifier: TermCell.Identifier)
         
-        Observable.just(MasterDataSource.sharedInstance.terms)
-            .bindTo(tableView.rx.items(cellIdentifier: TermCell.Identifier, cellType: TermCell.self)) { (row, element, cell) in
-                
-        }.disposed(by: disposeBag)
+        MasterDataSource.sharedInstance.terms.asObservable().bindTo(tableView.rx.items(cellIdentifier: TermCell.Identifier, cellType: TermCell.self)) { row, term, cell in
+            cell.configureWithTerm(term: term)
+        }.addDisposableTo(disposeBag)
     }
     
     private func setupContraints() {
@@ -97,7 +91,7 @@ class TermViewController: UIViewController {
 // MARK: StatefulViewController delegates
 extension TermViewController: StatefulViewController {
     func hasContent() -> Bool {
-        return false
+        return MasterDataSource.sharedInstance.terms.value.count > 0
     }
 }
 

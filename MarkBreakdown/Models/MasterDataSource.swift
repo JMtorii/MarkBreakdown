@@ -18,10 +18,10 @@ class MasterDataSource {
         return instance;
     }()
     
-    var terms: [Term] = []
+    var terms: Variable<[Term]> = Variable([])
     
     private init(terms: [Term]) {
-        self.terms = terms
+        self.terms = Variable(terms)
     }
     
 }

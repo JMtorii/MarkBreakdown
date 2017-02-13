@@ -63,8 +63,8 @@ class AddTermViewController: BaseAddViewController {
         
         yearTextField = SkyFloatingLabelTextField()
         yearTextField.translatesAutoresizingMaskIntoConstraints = false
-        yearTextField.placeholder = "Max Mark Percentage"
-        yearTextField.title = "Max Mark Percentage"
+        yearTextField.placeholder = "Year"
+        yearTextField.title = "Year"
         yearTextField.keyboardType = .numberPad
         textFields.append(yearTextField)
         stackView.addArrangedSubview(yearTextField)

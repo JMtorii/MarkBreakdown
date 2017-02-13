@@ -1,4 +1,4 @@
-platform :ios, '10.1'
+platform :ios, '10.2'
 use_frameworks!
 
 target 'MarkBreakdown' do
