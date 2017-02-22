@@ -8,20 +8,26 @@
 
 import Foundation
 import UIKit
+import RxSwift
+import RxCocoa
 
 class BaseAddViewController: UIViewController {
     var textFields: [AnyObject] = []
     var activeTextField: UITextField?
     
+    var throttleInterval: RxTimeInterval = 0.1
+    var disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         setupNavigationBar()
         setupView()
+        setupObservables()
     }
     
     private func setupNavigationBar() {
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneTapped))
+        let doneNavigationButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneTapped))
         
-        navigationItem.rightBarButtonItems = [doneButton]
+        navigationItem.rightBarButtonItems = [doneNavigationButton]
     }
     
     func setupView() {
@@ -29,6 +35,10 @@ class BaseAddViewController: UIViewController {
     }
     
     func setupConstraints() {
+        // Override me
+    }
+    
+    func setupObservables() {
         // Override me
     }
     
