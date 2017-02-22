@@ -15,7 +15,6 @@ class AddTermViewController: BaseAddViewController {
     fileprivate var contentView: UIView!
     fileprivate var stackView: UIStackView!
     fileprivate var descriptionLabel: UILabel!
-    fileprivate var separator1: UIView!
     fileprivate var termNameTextField: UITextField!
     fileprivate var yearTextField: UITextField!
     
@@ -52,19 +51,7 @@ class AddTermViewController: BaseAddViewController {
         descriptionLabel.textAlignment = .center
         stackView.addArrangedSubview(descriptionLabel)
         
-        separator1 = UIView()
-        separator1.translatesAutoresizingMaskIntoConstraints = false
-        separator1.backgroundColor = UIColor.init(white: 0.8, alpha: 1.0)
-        stackView.addArrangedSubview(separator1)
-        
-//        termNameTextField = SkyFloatingLabelTextField()
-//        termNameTextField.translatesAutoresizingMaskIntoConstraints = false
-//        termNameTextField.placeholder = "Term Name"
-//        termNameTextField.title = "Term Name"
-//        termNameTextField.returnKeyType = .done
-//        termNameTextField.delegate = self
-//        textFields.append(termNameTextField)
-//        stackView.addArrangedSubview(termNameTextField)
+        addSeparator(height: 0.5)
         
         termNameTextField = UITextField()
         termNameTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -76,15 +63,7 @@ class AddTermViewController: BaseAddViewController {
         textFields.append(termNameTextField)
         stackView.addArrangedSubview(termNameTextField)
         
-        
-        
-//        yearTextField = SkyFloatingLabelTextField()
-//        yearTextField.translatesAutoresizingMaskIntoConstraints = false
-//        yearTextField.placeholder = "Year"
-//        yearTextField.title = "Year"
-//        yearTextField.keyboardType = .numberPad
-//        textFields.append(yearTextField)
-//        stackView.addArrangedSubview(yearTextField)
+        addSeparator(height: 0.5)
         
         yearTextField = UITextField()
         yearTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -94,6 +73,8 @@ class AddTermViewController: BaseAddViewController {
         yearTextField.backgroundColor = .white
         textFields.append(yearTextField)
         stackView.addArrangedSubview(yearTextField)
+        
+        addSeparator(height: 0.5)
         
         super.setupView()
     }
@@ -105,7 +86,6 @@ class AddTermViewController: BaseAddViewController {
                                           "contentView": contentView,
                                           "stackView": stackView,
                                           "descriptionLabel": descriptionLabel,
-                                          "separator1": separator1,
                                           "termNameTextField": termNameTextField,
                                           "yearTextField": yearTextField]
         
@@ -119,7 +99,6 @@ class AddTermViewController: BaseAddViewController {
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|[contentView(==view@250)]|", metrics: nil, views: views)))
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|[stackView]|", metrics: nil, views: views)))
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:[descriptionLabel(==80)]", metrics: nil, views: views)))
-//        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:[separator1(==0.5)]", metrics: nil, views: views)))
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:[termNameTextField(==50)]", metrics: nil, views: views)))
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:[yearTextField(==termNameTextField)]", metrics: nil, views: views)))
 
@@ -153,5 +132,14 @@ class AddTermViewController: BaseAddViewController {
 //            
 //            navigationController.popViewController(animated: true)
 //        }
+    }
+    
+    func addSeparator(height: CGFloat) {
+        let separator = UIView()
+        separator.translatesAutoresizingMaskIntoConstraints = false
+        separator.backgroundColor = UIColor.init(white: 0.8, alpha: 1.0)
+        stackView.addArrangedSubview(separator)
+        
+        NSLayoutConstraint(item: separator, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 0.5).isActive = true
     }
 }
