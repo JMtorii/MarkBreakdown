@@ -120,6 +120,10 @@ class AddTermViewController: BaseAddViewController {
             $0 && $1
         }
         
+        everythingValid.subscribe(onNext: {
+            print("everythingValid is: \($0)")
+        }).addDisposableTo(disposeBag)
+        
         everythingValid.bindTo(navigationItem.rightBarButtonItem!.rx.isEnabled).addDisposableTo(disposeBag)
     }
     
