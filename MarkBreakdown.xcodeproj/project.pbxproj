@@ -215,7 +215,8 @@
 				TargetAttributes = {
 					6C5363C11E0F6A10001ACB1B = {
 						CreatedOnToolsVersion = 8.1;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = QHQUS66VSQ;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -436,10 +437,14 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = QHQUS66VSQ;
 				INFOPLIST_FILE = MarkBreakdown/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.juntorii.MarkBreakdown;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "560b2b4c-585b-4c9d-9b8b-6fb79e00af28";
+				PROVISIONING_PROFILE_SPECIFIER = "com.juntorii.MarkBreakdown AppStore";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -451,10 +456,14 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = QHQUS66VSQ;
 				INFOPLIST_FILE = MarkBreakdown/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.juntorii.MarkBreakdown;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "560b2b4c-585b-4c9d-9b8b-6fb79e00af28";
+				PROVISIONING_PROFILE_SPECIFIER = "com.juntorii.MarkBreakdown AppStore";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
