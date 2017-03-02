@@ -52,6 +52,7 @@ class BaseTableViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 70.0;
         tableView.tableFooterView = UIView(frame: CGRect.zero)
+        tableView.delegate = self
         view.addSubview(tableView)
         
         setupContraints()
@@ -75,9 +76,13 @@ class BaseTableViewController: UIViewController {
     
     
     // MARK: Navigation bar button actions
-    
     func addButtonTapped(sender: UIButton) {
         // Nothing to do here
+    }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        tableView.isEditing = editing
     }
 }
 
@@ -86,4 +91,11 @@ extension BaseTableViewController: StatefulViewController {
     func hasContent() -> Bool {
         return false;
     }
+}
+
+extension BaseTableViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+        return proposedDestinationIndexPath;
+    }
+
 }

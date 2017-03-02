@@ -24,9 +24,11 @@ class TermViewController: BaseTableViewController {
     }
     
     override func setupCellConfiguration() {
-        let testTerm = Term(termName: "Test Term", year: 2017, courses: [])
-        MasterDataSource.sharedInstance.terms.value.append(testTerm)
-        
+        for index in 1...5 {
+            let testTerm = Term(termName: "Test Term \(index)", year: 2017, courses: [])
+            MasterDataSource.sharedInstance.terms.value.append(testTerm)
+        }
+
         tableView.register(TermCell.self, forCellReuseIdentifier: TermCell.Identifier)
         
         MasterDataSource.sharedInstance.terms.asObservable().bindTo(tableView.rx.items(cellIdentifier: TermCell.Identifier, cellType: TermCell.self)) { row, term, cell in
