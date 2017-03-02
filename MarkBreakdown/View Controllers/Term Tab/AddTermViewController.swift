@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import RxSwift
+import RxCocoa
 
 class AddTermViewController: BaseAddViewController {
     
@@ -15,8 +17,8 @@ class AddTermViewController: BaseAddViewController {
     fileprivate var contentView: UIView!
     fileprivate var stackView: UIStackView!
     fileprivate var descriptionLabel: UILabel!
-    fileprivate var termNameTextField: UITextField!
-    fileprivate var yearTextField: UITextField!
+    fileprivate var termNameTextField: PlaceholderTextField!
+    fileprivate var yearTextField: PlaceholderTextField!
     
     
     // MARK: Setup
@@ -53,7 +55,7 @@ class AddTermViewController: BaseAddViewController {
         
         addSeparator(height: 0.5)
         
-        termNameTextField = UITextField()
+        termNameTextField = PlaceholderTextField()
         termNameTextField.translatesAutoresizingMaskIntoConstraints = false
         termNameTextField.placeholder = "Term Name"
         termNameTextField.returnKeyType = .done
@@ -65,7 +67,7 @@ class AddTermViewController: BaseAddViewController {
         
         addSeparator(height: 0.5)
         
-        yearTextField = UITextField()
+        yearTextField = PlaceholderTextField()
         yearTextField.translatesAutoresizingMaskIntoConstraints = false
         yearTextField.placeholder = "Year"
         yearTextField.keyboardType = .numberPad
@@ -105,33 +107,35 @@ class AddTermViewController: BaseAddViewController {
         NSLayoutConstraint.activate(layoutContraints)
     }
     
+    override func setupObservables() {
+        let termNameValid = termNameTextField.rx.text.throttle(throttleInterval, scheduler: MainScheduler.instance).map {
+            !($0?.isEmpty ?? true)
+        }
+        
+        let yearValid = yearTextField.rx.text.throttle(throttleInterval, scheduler: MainScheduler.instance).map {
+            !($0?.isEmpty ?? true)
+        }
+        
+        let everythingValid = Observable.combineLatest(termNameValid, yearValid) {
+            $0 && $1
+        }
+        
+        everythingValid.subscribe(onNext: {
+            print("everythingValid is: \($0)")
+        }).addDisposableTo(disposeBag)
+        
+        everythingValid.bindTo(navigationItem.rightBarButtonItem!.rx.isEnabled).addDisposableTo(disposeBag)
+    }
+    
     override func doneTapped() {
         self.view.endEditing(true)
         
-//        var hasError = false
-//        
-//        if termNameTextField.text?.isEmpty ?? true {
-//            termNameTextField.errorMessage = "Term Name Required"
-//            hasError = true
-//        }
-//        
-//        if yearTextField.text?.isEmpty ?? true {
-//            yearTextField.errorMessage = "Year Required"
-//            hasError = true
-//        }
-//        
-//        if hasError {
-//            return;
-//        }
-//        
-//        // TODO: create a new term
-//        
-//        if let navigationController = navigationController, let termName = termNameTextField.text, let year = yearTextField.text, let intYear = Int(year) {
-//            let term: Term = Term(termName: termName, year: intYear, courses: [])
-//            MasterDataSource.sharedInstance.terms.value.append(term)
-//            
-//            navigationController.popViewController(animated: true)
-//        }
+        if let navigationController = navigationController, let termName = termNameTextField.text, let year = yearTextField.text, let intYear = Int(year) {
+            let term: Term = Term(termName: termName, year: intYear, courses: [])
+            MasterDataSource.sharedInstance.terms.value.append(term)
+            
+            navigationController.popViewController(animated: true)
+        }
     }
     
     func addSeparator(height: CGFloat) {

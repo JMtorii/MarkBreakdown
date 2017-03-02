@@ -10,6 +10,7 @@ import UIKit
 import Foundation
 
 class PlaceholderTextField: UITextField {
+    
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         super.textRect(forBounds: bounds)
         return bounds.insetBy(dx: 0, dy: 2).offsetBy(dx: 20, dy: 4);
@@ -19,7 +20,7 @@ class PlaceholderTextField: UITextField {
         super.editingRect(forBounds: bounds)
         return bounds.insetBy(dx: 0, dy: 2).offsetBy(dx: 20, dy: 4);
     }
-    
+
     override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
         super.placeholderRect(forBounds: bounds)
         return bounds.offsetBy(dx: 20, dy: 2);
