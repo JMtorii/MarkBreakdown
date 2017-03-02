@@ -1,6 +1,6 @@
 # This is the minimum version number required.
 # Update this, if you use features of a newer version
-fastlane_version "2.6.0"
+fastlane_version "2.18.3"
  
 default_platform :ios
  
@@ -11,6 +11,7 @@ platform :ios do
   # 2
   lane :provision do
     # 3
+    cocoapods
     produce(
       app_name: ‘Mark Breakdown’,
       language: 'English',
@@ -20,7 +21,7 @@ platform :ios do
     # 4
     cert
     # 5
-    sigh(force: true)
+    sigh(force: true, development: true)
   end
  
   error do |lane, exception|
