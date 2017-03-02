@@ -31,6 +31,8 @@ class TermViewController: BaseTableViewController {
 
         tableView.register(TermCell.self, forCellReuseIdentifier: TermCell.Identifier)
         
+//        let moveTermCommand = tableView.rx.itemMoved.map()
+        
         MasterDataSource.sharedInstance.terms.asObservable().bindTo(tableView.rx.items(cellIdentifier: TermCell.Identifier, cellType: TermCell.self)) { row, term, cell in
             cell.configureWithTerm(term: term)
         }.addDisposableTo(disposeBag)

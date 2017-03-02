@@ -24,4 +24,12 @@ class MasterDataSource {
         self.terms = Variable(terms)
     }
     
+    func executeCommand(_ command: TableViewEditingCommand) {
+        switch command {
+        case let .delete(indexPath):
+            terms.value.remove(at: indexPath.row)
+        default:
+            <#code#>
+        }
+    }
 }
