@@ -24,12 +24,20 @@ class MasterDataSource {
         self.terms = Variable(terms)
     }
     
-    func executeCommand(_ command: TableViewEditingCommand) {
+    static func executeCommand(_ command: TableViewEditingCommand) {
         switch command {
         case let .delete(indexPath):
-            terms.value.remove(at: indexPath.row)
-        default:
-            <#code#>
+            MasterDataSource.sharedInstance.terms.value.remove(at: indexPath.row)
+        case let .move(from, to):
+            let term = MasterDataSource.sharedInstance.terms.value[from.row]
+            MasterDataSource.sharedInstance.terms.value.remove(at: from.row)
+            MasterDataSource.sharedInstance.terms.value.insert(term, at: to.row)
         }
+    }
+}
+
+extension MasterDataSource: CustomStringConvertible {
+    public var description: String {
+        return ""
     }
 }

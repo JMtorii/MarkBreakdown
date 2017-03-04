@@ -9,6 +9,6 @@
 import Foundation
 
 enum TableViewEditingCommand {
-    case delete(IndexPath: IndexPath)
+    case delete(indexPath: IndexPath)
     case move(from: IndexPath, to: IndexPath)
 }

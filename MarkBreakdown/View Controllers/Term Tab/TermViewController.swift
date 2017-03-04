@@ -30,12 +30,18 @@ class TermViewController: BaseTableViewController {
         }
 
         tableView.register(TermCell.self, forCellReuseIdentifier: TermCell.Identifier)
-        
-//        let moveTermCommand = tableView.rx.itemMoved.map()
-        
+                
         MasterDataSource.sharedInstance.terms.asObservable().bindTo(tableView.rx.items(cellIdentifier: TermCell.Identifier, cellType: TermCell.self)) { row, term, cell in
             cell.configureWithTerm(term: term)
         }.addDisposableTo(disposeBag)
+        
+        tableView.rx.itemDeleted.subscribe(onNext: { (indexPath: IndexPath) in
+            MasterDataSource.executeCommand(.delete(indexPath: indexPath))
+        }).addDisposableTo(disposeBag)
+        
+        tableView.rx.itemMoved.subscribe(onNext: { (sourceIndex: IndexPath, destinationIndex: IndexPath) in
+            MasterDataSource.executeCommand(.move(from: sourceIndex, to: destinationIndex))
+        }).addDisposableTo(disposeBag)
     }
     
     override func setupCellTapped() {
