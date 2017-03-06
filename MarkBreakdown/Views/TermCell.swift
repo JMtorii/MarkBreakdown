@@ -62,7 +62,7 @@ class TermCell: UITableViewCell {
         
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[termNameLabel]-[yearLabel]-20-|", metrics: nil, views: views)))
         
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|-10-[termNameLabel(==40)]-10-|", metrics: nil, views: views)))
+        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|-10-[termNameLabel]-10-|", metrics: nil, views: views)))
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|-10-[yearLabel(==termNameLabel)]-10-|", metrics: nil, views: views)))
 
         
