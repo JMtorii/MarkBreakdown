@@ -52,7 +52,6 @@ class BaseTableViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 70.0;
         tableView.tableFooterView = UIView(frame: CGRect.zero)
-        tableView.delegate = self
         view.addSubview(tableView)
         
         setupContraints()
