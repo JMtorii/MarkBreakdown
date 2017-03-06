@@ -23,6 +23,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window!.rootViewController = rootViewController
         self.window?.makeKeyAndVisible()
         
+        UINavigationBar.appearance().barTintColor = UIColor(red: 255, green: 105/255, blue: 180/255, alpha: 1)
+        UINavigationBar.appearance().tintColor = .white
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        UITabBar.appearance().tintColor = UIColor(red: 255, green: 105/255, blue: 180/255, alpha: 1)
+        
         return true
     }
 
