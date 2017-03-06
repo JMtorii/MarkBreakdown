@@ -7,10 +7,10 @@ pod 'RxSwift', '~> 3.0'
 pod 'RxCocoa', '~> 3.0'
 pod 'SwiftyJSON', '~> 3.0'
 pod 'ObjectMapper', '~> 2.2'
-pod "StatefulViewController", "~> 3.0"
+pod 'StatefulViewController', '~> 3.0'
 pod 'Reveal-SDK', :configuration => ['Debug']
 pod 'SwiftLint'
-pod 'ChameleonFramework/Swift'
+#pod 'ChameleonFramework/Swift', '~> 2.0'
 pod 'Charts'
 
 end
