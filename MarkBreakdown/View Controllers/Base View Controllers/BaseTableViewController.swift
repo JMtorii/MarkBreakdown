@@ -92,10 +92,3 @@ extension BaseTableViewController: StatefulViewController {
         return false;
     }
 }
-
-extension BaseTableViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
-        return proposedDestinationIndexPath;
-    }
-
-}

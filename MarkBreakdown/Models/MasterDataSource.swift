@@ -38,6 +38,16 @@ class MasterDataSource {
 
 extension MasterDataSource: CustomStringConvertible {
     public var description: String {
-        return ""
+        var str: String = "";
+        
+        str.append("MasterDataSource, count: \(terms.value.count) \n");
+        
+        terms.value.forEach { term in
+            if let year = term.year, let termName = term.termName {
+                str.append("\(year): \(termName) \n")
+            }
+        }
+        
+        return str;
     }
 }

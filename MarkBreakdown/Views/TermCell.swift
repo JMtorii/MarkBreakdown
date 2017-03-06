@@ -44,12 +44,13 @@ class TermCell: UITableViewCell {
     private func setupView() {
         termNameLabel = UILabel()
         termNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        termNameLabel.font = UIFont.systemFont(ofSize: 20, weight: UIFontWeightBold)
+        termNameLabel.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightMedium)
         termNameLabel.textColor = .gray
         contentView.addSubview(termNameLabel)
         
         yearLabel = UILabel()
         yearLabel.translatesAutoresizingMaskIntoConstraints = false
+        yearLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightThin)
         contentView.addSubview(yearLabel)
         
         setupContraints()
@@ -62,8 +63,8 @@ class TermCell: UITableViewCell {
         
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[termNameLabel]-[yearLabel]-20-|", metrics: nil, views: views)))
         
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|-10-[termNameLabel]-10-|", metrics: nil, views: views)))
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|-10-[yearLabel(==termNameLabel)]-10-|", metrics: nil, views: views)))
+        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|-15-[termNameLabel]-15-|", metrics: nil, views: views)))
+        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|-15-[yearLabel(==termNameLabel)]-15-|", metrics: nil, views: views)))
 
         
         NSLayoutConstraint.activate(layoutContraints)
