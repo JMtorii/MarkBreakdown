@@ -132,7 +132,7 @@ class AddTermViewController: BaseAddViewController {
         
         if let navigationController = navigationController, let termName = termNameTextField.text, let year = yearTextField.text, let intYear = Int(year) {
             let term: Term = Term(termName: termName, year: intYear, courses: [])
-            MasterDataSource.sharedInstance.terms.value.append(term)
+            SchoolManager.sharedInstance.school.terms.append(term)
             
             navigationController.popViewController(animated: true)
         }

@@ -18,7 +18,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+                
         // First tab
         let termViewController = TermViewController()
         let tabOneNavigationController = UINavigationController(rootViewController: termViewController)

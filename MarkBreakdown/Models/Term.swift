@@ -14,14 +14,15 @@ class Term : Mappable {
     var year: Int?
     var courses = [Course]()
     
-    required init?(map: Map) {
-        // Nothing to do here
-    }
     
     init(termName: String, year: Int, courses: [Course]) {
         self.termName = termName
         self.year = year
         self.courses = courses
+    }
+    
+    required init?(map: Map) {
+        // Nothing to do here
     }
     
     func mapping(map: Map) {
