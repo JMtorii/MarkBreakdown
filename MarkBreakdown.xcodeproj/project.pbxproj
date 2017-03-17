@@ -164,10 +164,10 @@
 			isa = PBXGroup;
 			children = (
 				6CBA40831E45301000F5E2B6 /* SchoolManager.swift */,
+				6CD2A3271E7B224600F987D1 /* School.swift */,
 				6CCE73921E16351C00A08F4B /* Term.swift */,
 				B61858C21E19AC2100D0ABAE /* Course.swift */,
 				B61858C41E19B4D000D0ABAE /* Assessment.swift */,
-				6CD2A3271E7B224600F987D1 /* School.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
