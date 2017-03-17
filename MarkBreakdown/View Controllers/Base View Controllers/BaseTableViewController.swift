@@ -108,12 +108,14 @@ class BaseTableViewController: UIViewController {
 
 extension BaseTableViewController {
     func setTopViewHeight(_ height: CGFloat) {
+        topViewHeightConstraint.isActive = false
         topViewHeightConstraint = NSLayoutConstraint(item: topView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: height)
+        topViewHeightConstraint.isActive = true
         self.view.layoutIfNeeded()
     }
     
     func hideTopView() {
-        
+        setTopViewHeight(0.0)
     }
 }
 

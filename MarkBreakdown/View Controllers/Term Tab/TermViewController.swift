@@ -16,7 +16,7 @@ class TermViewController: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setTopViewHeight(0.0)
+        hideTopView()
     }
     
     override func setupData() {
