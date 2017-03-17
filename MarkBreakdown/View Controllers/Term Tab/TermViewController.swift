@@ -20,15 +20,11 @@ class TermViewController: BaseTableViewController {
     override func setupView() {
         title = "Terms"
         
+        PersistenceKit.readFromDevice()
         super.setupView()
     }
     
     override func setupCellConfiguration() {
-        for index in 1...5 {
-            let testTerm = Term(termName: "Test Term \(index)", year: 2017, courses: [])
-            SchoolManager.sharedInstance.school.terms.append(testTerm)
-        }
-
         tableView.register(TermCell.self, forCellReuseIdentifier: TermCell.Identifier)
                         
         SchoolManager.sharedInstance.school.termsObservable.asObservable()
@@ -57,7 +53,6 @@ class TermViewController: BaseTableViewController {
     }
     
     override func addButtonTapped(sender: UIButton) {
-        print("Add Button pressed")
         let addTermViewController = AddTermViewController()
         navigationController?.pushViewController(addTermViewController, animated: true)
     }
