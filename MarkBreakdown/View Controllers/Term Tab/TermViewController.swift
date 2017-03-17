@@ -13,15 +13,24 @@ import StatefulViewController
 
 class TermViewController: BaseTableViewController {
     
-    override func setupEmptyView() {
-        emptyView = DefaultEmptyView(title: "You Have No Terms", subTitle: "Tap the + button to add a new term")
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setTopViewHeight(0.0)
     }
     
-    override func setupView() {
-        title = "Terms"
-        
+    override func setupData() {
         PersistenceKit.readFromDevice()
-        super.setupView()
+    }
+    
+    override func setupNavigationBar() {
+        super.setupNavigationBar()
+        
+        title = "Terms"
+    }
+    
+    override func setupEmptyView() {
+        emptyView = DefaultEmptyView(title: "You Have No Terms", subTitle: "Tap the + button to add a new term")
     }
     
     override func setupCellConfiguration() {

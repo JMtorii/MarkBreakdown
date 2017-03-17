@@ -107,6 +107,7 @@ class AddTermViewController: BaseAddViewController {
         NSLayoutConstraint.activate(layoutContraints)
     }
     
+    // TODO: prevent duplicates
     override func setupObservables() {
         let termNameValid = termNameTextField.rx.text.throttle(throttleInterval, scheduler: MainScheduler.instance).map {
             !($0?.isEmpty ?? true)
