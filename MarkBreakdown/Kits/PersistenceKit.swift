@@ -17,7 +17,8 @@ class PersistenceKit {
     }
     
     static func readFromDevice() {
-        let json = UserDefaults.standard.object(forKey: dataKey) as! String
-        SchoolManager.sharedInstance.school = School(JSON: json)
+        if let json = UserDefaults.standard.string(forKey: dataKey) {
+            SchoolManager.sharedInstance.school = School(JSONString: json)!
+        }
     }
 }
