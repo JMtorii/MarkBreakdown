@@ -113,7 +113,7 @@ class AddTermViewController: BaseAddViewController {
         }
         
         let yearValid = yearTextField.rx.text.throttle(throttleInterval, scheduler: MainScheduler.instance).map {
-            !($0?.isEmpty ?? true)
+            !($0?.isEmpty ?? true) && $0?.characters.count == 4
         }
         
         let everythingValid = Observable.combineLatest(termNameValid, yearValid) {
@@ -145,5 +145,18 @@ class AddTermViewController: BaseAddViewController {
         stackView.addArrangedSubview(separator)
         
         NSLayoutConstraint(item: separator, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 0.5).isActive = true
+    }
+}
+
+extension AddTermViewController: UITextViewDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if (textField == yearTextField) {
+            let aSet = NSCharacterSet(charactersIn:"0123456789").inverted
+            let compSepByCharInSet = string.components(separatedBy: aSet)
+            let numberFiltered = compSepByCharInSet.joined(separator: "")
+            return string == numberFiltered
+        }
+        
+        return true
     }
 }

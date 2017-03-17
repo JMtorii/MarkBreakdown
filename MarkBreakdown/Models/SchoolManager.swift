@@ -11,7 +11,7 @@ import RxSwift
 
 
 class SchoolManager {
-    static let sharedInstance : SchoolManager = SchoolManager(school: School(terms: []))
+    static let sharedInstance: SchoolManager = SchoolManager(school: School(terms: []))
     var school: School
     
     
@@ -50,12 +50,7 @@ extension SchoolManager {
             SchoolManager.sharedInstance.school.terms.remove(at: from.row)
             SchoolManager.sharedInstance.school.terms.insert(term, at: to.row)
         }
-    }
-}
-
-// MARK: Helper private methods
-extension SchoolManager {
-    fileprivate func persist() {
         
+        PersistenceKit.persistToDevice()
     }
 }

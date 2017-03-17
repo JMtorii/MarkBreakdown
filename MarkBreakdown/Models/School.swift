@@ -12,7 +12,7 @@ import RxSwift
 
 class School: Mappable {
     
-    var terms: [Term] {
+    var terms: [Term] = [] {
         didSet {
             termsObservable.value = terms
         }
@@ -29,6 +29,6 @@ class School: Mappable {
     }
     
     func mapping(map: Map) {
-        terms <- map["temrs"]
+        terms <- map["terms"]
     }
 }
