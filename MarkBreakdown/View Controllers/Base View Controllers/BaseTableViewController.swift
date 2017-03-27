@@ -56,14 +56,21 @@ class BaseTableViewController: UIViewController {
     }
     
     func setupView() {
+        guard let tabBarHeight = tabBarController?.tabBar.frame.height else {
+            return
+        }
+        
+        navigationController?.navigationBar.isTranslucent = false
+        
         topView = UIView()
         topView.translatesAutoresizingMaskIntoConstraints = false
         topView.backgroundColor = .white
         view.addSubview(topView)
         
         tableView = UITableView()
+        tableView.contentInset = UIEdgeInsetsMake(0, 0, tabBarHeight, 0)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = UIColor(white: 0.96, alpha: 1.0)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 70.0;
         tableView.tableFooterView = UIView(frame: CGRect.zero)

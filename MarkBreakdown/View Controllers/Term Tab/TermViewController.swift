@@ -16,7 +16,7 @@ class TermViewController: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        hideTopView()
+        setTopViewHeight(10.0)
     }
     
     override func setupData() {
@@ -33,12 +33,20 @@ class TermViewController: BaseTableViewController {
         emptyView = DefaultEmptyView(title: "You Have No Terms", subTitle: "Tap the + button to add a new term")
     }
     
+    override func setupView() {
+        super.setupView()
+        
+        topView.backgroundColor = UIColor(white: 0.96, alpha: 1.0)
+    }
+    
     override func setupCellConfiguration() {
+        tableView.separatorColor = UIColor(white: 0.96, alpha: 1.0)
         tableView.register(TermCell.self, forCellReuseIdentifier: TermCell.Identifier)
-                        
+        
         SchoolManager.sharedInstance.school.termsObservable.asObservable()
             .bindTo(tableView.rx.items(cellIdentifier: TermCell.Identifier, cellType: TermCell.self)) { row, term, cell in
                 cell.configureWithTerm(term: term)
+                cell.selectionStyle = .none
             }.addDisposableTo(disposeBag)
         
         tableView.rx
