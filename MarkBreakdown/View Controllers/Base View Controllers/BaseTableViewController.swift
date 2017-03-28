@@ -46,9 +46,8 @@ class BaseTableViewController: UIViewController {
     
     func setupNavigationBar() {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(TermViewController.addButtonTapped))
-        let editButton = self.editButtonItem
         
-        navigationItem.rightBarButtonItems = [addButton, editButton]
+        navigationItem.rightBarButtonItems = [addButton]
     }
     
     func setupEmptyView() {
@@ -68,8 +67,9 @@ class BaseTableViewController: UIViewController {
         view.addSubview(topView)
         
         tableView = UITableView()
-        tableView.contentInset = UIEdgeInsetsMake(0, 0, tabBarHeight, 0)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.delegate = self
+        tableView.contentInset = UIEdgeInsetsMake(0, 0, tabBarHeight, 0)
         tableView.backgroundColor = UIColor(white: 0.96, alpha: 1.0)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 70.0;
@@ -106,13 +106,16 @@ class BaseTableViewController: UIViewController {
     func addButtonTapped(sender: UIButton) {
         // Nothing to do here
     }
-    
-    override func setEditing(_ editing: Bool, animated: Bool) {
-        super.setEditing(editing, animated: animated)
-        tableView.isEditing = editing
-    }
 }
 
+extension BaseTableViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return .none
+    }
+
+}
+
+// MARK: Top view
 extension BaseTableViewController {
     func setTopViewHeight(_ height: CGFloat) {
         topViewHeightConstraint.isActive = false
