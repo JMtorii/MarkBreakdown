@@ -148,13 +148,17 @@ class AddTermViewController: BaseAddViewController {
 
 extension AddTermViewController: UITextViewDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if (textField == yearTextField) {
-            let aSet = NSCharacterSet(charactersIn:"0123456789").inverted
-            let compSepByCharInSet = string.components(separatedBy: aSet)
-            let numberFiltered = compSepByCharInSet.joined(separator: "")
-            return string == numberFiltered
+        if let text = textField.text {
+            if (textField == yearTextField) {
+                let aSet = NSCharacterSet(charactersIn:"0123456789").inverted
+                let compSepByCharInSet = string.components(separatedBy: aSet)
+                let numberFiltered = compSepByCharInSet.joined(separator: "")
+                return string == numberFiltered && text.characters.count < 4
+            }
+            
+            return true
         }
         
-        return true
+        return false
     }
 }
