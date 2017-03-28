@@ -13,8 +13,14 @@ class TermCell: UITableViewCell {
     static let Identifier = "TermCell"
     
     var containerView: UIView!
-    var termNameLabel: UILabel!
+    var mainStackView: UIStackView!
+    var leftStackView: UIStackView!
+    
     var yearLabel: UILabel!
+    var dateModifiedLabel: UILabel!
+    var termNameLabel: UILabel!
+    var averageLabel: UILabel!
+    
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -28,8 +34,9 @@ class TermCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        termNameLabel.text = ""
         yearLabel.text = ""
+        dateModifiedLabel.text = ""
+        termNameLabel.text = ""
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -41,12 +48,12 @@ class TermCell: UITableViewCell {
     }
     
     func configureWithTerm(term: Term) {
-        if let termName = term.termName {
-            termNameLabel.text = termName
-        }
-        
         if let year = term.year {
             yearLabel.text = "\(year)"
+        }
+        
+        if let termName = term.termName {
+            termNameLabel.text = termName
         }
     }
     
@@ -58,16 +65,44 @@ class TermCell: UITableViewCell {
         containerView.backgroundColor = .white
         contentView.addSubview(containerView)
         
-        termNameLabel = UILabel()
-        termNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        termNameLabel.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightMedium)
-        termNameLabel.textColor = .gray
-        containerView.addSubview(termNameLabel)
+        mainStackView = UIStackView()
+        mainStackView.translatesAutoresizingMaskIntoConstraints = false
+        mainStackView.axis = .horizontal
+        mainStackView.distribution = .fill
+        mainStackView.alignment = .fill
+        mainStackView.spacing = 0.0
+        containerView.addSubview(mainStackView)
+        
+        // left stack view content
+        leftStackView = UIStackView()
+        leftStackView.translatesAutoresizingMaskIntoConstraints = false
+        leftStackView.axis = .vertical
+        leftStackView.distribution = .fill
+        leftStackView.alignment = .fill
+        leftStackView.spacing = 0.0
+        mainStackView.addArrangedSubview(leftStackView)
         
         yearLabel = UILabel()
         yearLabel.translatesAutoresizingMaskIntoConstraints = false
         yearLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightThin)
-        containerView.addSubview(yearLabel)
+        leftStackView.addArrangedSubview(yearLabel)
+        
+        dateModifiedLabel = UILabel()
+        dateModifiedLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateModifiedLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
+        leftStackView.addArrangedSubview(dateModifiedLabel)
+        
+        termNameLabel = UILabel()
+        termNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        termNameLabel.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightMedium)
+        termNameLabel.textColor = .gray
+        leftStackView.addArrangedSubview(termNameLabel)
+        
+        // right view
+        averageLabel = UILabel()
+        averageLabel.translatesAutoresizingMaskIntoConstraints = true
+        averageLabel.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightMedium)
+        mainStackView.addArrangedSubview(averageLabel)
         
         setupContraints()
     }
@@ -75,15 +110,14 @@ class TermCell: UITableViewCell {
     private func setupContraints() {
         var layoutContraints = [NSLayoutConstraint]()
         let views: [String: AnyObject] = ["containerView": containerView,
-                                          "termNameLabel": termNameLabel,
-                                          "yearLabel": yearLabel]
+                                          "mainStackView": mainStackView,
+                                          "leftStackView": leftStackView]
         
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[containerView]-20-|", metrics: nil, views: views)))
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[termNameLabel]-[yearLabel]-20-|", metrics: nil, views: views)))
+        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|[mainStackView]|", metrics: nil, views: views)))
         
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|-5-[containerView]-5-|", metrics: nil, views: views)))
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|-15-[termNameLabel]-15-|", metrics: nil, views: views)))
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|-15-[yearLabel(==termNameLabel)]-15-|", metrics: nil, views: views)))
+        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|[mainStackView]|", metrics: nil, views: views)))
 
         
         NSLayoutConstraint.activate(layoutContraints)
