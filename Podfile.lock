@@ -4,11 +4,11 @@ PODS:
   - Charts/Core (3.0.1)
   - ObjectMapper (2.2.5)
   - Reveal-SDK (7)
-  - RxCocoa (3.2.0):
-    - RxSwift (~> 3.1)
-  - RxSwift (3.2.0)
+  - RxCocoa (3.3.1):
+    - RxSwift (~> 3.3)
+  - RxSwift (3.3.1)
   - StatefulViewController (3.0)
-  - SwiftLint (0.16.1)
+  - SwiftLint (0.17.0)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
@@ -25,10 +25,10 @@ SPEC CHECKSUMS:
   Charts: 0e84f4418e87dad6a9edde221fba37ebb51d3ba7
   ObjectMapper: fb30f71e08470d1e5a20b199fafe1246281db898
   Reveal-SDK: 564657bc66c93d2718b1c0121cdebe99d354ddab
-  RxCocoa: ccdf43101a70407097a29082f648ba1676075b30
-  RxSwift: 46574f70d416b7923c237195939cc488a7fbf3a0
+  RxCocoa: 7dcb7a1860fc9cd0e23dae67ab105fc2916670b6
+  RxSwift: 8fc9f2de6275a9101d518444e00bf32f1a42caac
   StatefulViewController: 4803bf900d44de26074344998e10e041113b5931
-  SwiftLint: b8b683208cc09640898f16318a7a452274e91f61
+  SwiftLint: 9fb1dd71d5952d130f8c2fb60ae2e1475cf5d575
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
 PODFILE CHECKSUM: c7d83b54d9e9f975cac39c8d3f606c07545fff04
