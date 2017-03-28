@@ -12,6 +12,9 @@ import ObjectMapper
 class Term : Mappable {
     var termName: String?
     var year: Int?
+    var dateAdded: Date?
+    var dateModified: Date?
+    var average: Float?
     var courses = [Course]()
     
     
@@ -19,6 +22,10 @@ class Term : Mappable {
         self.termName = termName
         self.year = year
         self.courses = courses
+        
+        dateAdded = Date()
+        dateModified = dateAdded
+        average = 0
     }
     
     required init?(map: Map) {
@@ -28,6 +35,9 @@ class Term : Mappable {
     func mapping(map: Map) {
         termName        <- map["termName"]
         year            <- map["year"]
+        dateAdded       <- map["dateAdded"]
+        dateModified    <- map["dateModified"]
+        average         <- map["average"]
         courses         <- map["courses"]
     }
 }

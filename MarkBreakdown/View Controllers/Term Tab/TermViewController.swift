@@ -50,20 +50,6 @@ class TermViewController: BaseTableViewController {
             }.addDisposableTo(disposeBag)
         
         tableView.rx
-            .itemDeleted
-            .subscribe(onNext: { (indexPath: IndexPath) in
-                SchoolManager.executeCommand(.delete(indexPath: indexPath))
-            }).addDisposableTo(disposeBag)
-        
-        tableView.rx
-            .itemMoved
-            .subscribe(onNext: { (sourceIndex: IndexPath, destinationIndex: IndexPath) in
-                SchoolManager.executeCommand(.move(from: sourceIndex, to: destinationIndex))
-            }).addDisposableTo(disposeBag)
-    }
-    
-    override func setupCellTapped() {
-        tableView.rx
             .modelSelected(Term.self).subscribe(onNext: { term in
                 // Do stuff here
             }).addDisposableTo(disposeBag)
