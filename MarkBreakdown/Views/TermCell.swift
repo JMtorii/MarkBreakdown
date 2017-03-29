@@ -13,6 +13,7 @@ class TermCell: UITableViewCell {
     static let Identifier = "TermCell"
     
     var containerView: UIView!
+    var highlightView: UIView!
     var mainStackView: UIStackView!
     var leftStackView: UIStackView!
     
@@ -39,12 +40,12 @@ class TermCell: UITableViewCell {
         termNameLabel.text = ""
     }
     
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        highlightView.alpha = highlighted ? 1.0 : 0.0
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
-        if (selected) {
-            containerView.backgroundColor = .gray
-        } else {
-            containerView.backgroundColor = .white
-        }
+        highlightView.alpha = selected ? 1.0: 0.0
     }
     
     func configureWithTerm(term: Term) {
@@ -64,6 +65,12 @@ class TermCell: UITableViewCell {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.backgroundColor = .white
         contentView.addSubview(containerView)
+        
+        highlightView = UIView()
+        highlightView.translatesAutoresizingMaskIntoConstraints = false
+        highlightView.backgroundColor = .purple
+        highlightView.alpha = 0.0
+        contentView.addSubview(highlightView)
         
         mainStackView = UIStackView()
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -94,8 +101,8 @@ class TermCell: UITableViewCell {
         
         termNameLabel = UILabel()
         termNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        termNameLabel.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightMedium)
-        termNameLabel.textColor = .gray
+        termNameLabel.font = UIFont.systemFont(ofSize: 30, weight: UIFontWeightMedium)
+        termNameLabel.textColor = .black
         leftStackView.addArrangedSubview(termNameLabel)
         
         // right view
@@ -110,14 +117,20 @@ class TermCell: UITableViewCell {
     private func setupContraints() {
         var layoutContraints = [NSLayoutConstraint]()
         let views: [String: AnyObject] = ["containerView": containerView,
+                                          "highlightView": highlightView,
                                           "mainStackView": mainStackView,
-                                          "leftStackView": leftStackView]
+                                          "leftStackView": leftStackView,
+                                          "yearLabel": yearLabel,
+                                          "dateModifiedLabel": dateModifiedLabel,
+                                          "termNameLabel": termNameLabel,
+                                          "averageLabel": averageLabel]
         
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[containerView]-20-|", metrics: nil, views: views)))
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|[mainStackView]|", metrics: nil, views: views)))
+        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[highlightView]-20-|", metrics: nil, views: views)))
+        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[mainStackView]-20-|", metrics: nil, views: views)))
         
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|-5-[containerView]-5-|", metrics: nil, views: views)))
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|[mainStackView]|", metrics: nil, views: views)))
+        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|-5-[containerView][highlightView(==5)]|", metrics: nil, views: views)))
+        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|-20-[mainStackView]-20-|", metrics: nil, views: views)))
 
         
         NSLayoutConstraint.activate(layoutContraints)
