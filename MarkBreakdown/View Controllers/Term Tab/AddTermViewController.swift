@@ -55,9 +55,9 @@ class AddTermViewController: BaseAddViewController {
         
         addSeparator(height: 0.5)
         
-        termNameTextField = PlaceholderTextField()
+        termNameTextField = PlaceholderTextField(placeholderText: "Term Name")
         termNameTextField.translatesAutoresizingMaskIntoConstraints = false
-        termNameTextField.placeholder = "Term Name"
+//        termNameTextField.placeholder = "Term Name"
         termNameTextField.returnKeyType = .done
         termNameTextField.autocorrectionType = .no
         termNameTextField.delegate = self
@@ -67,9 +67,9 @@ class AddTermViewController: BaseAddViewController {
         
         addSeparator(height: 0.5)
         
-        yearTextField = PlaceholderTextField()
+        yearTextField = PlaceholderTextField(placeholderText: "Year")
         yearTextField.translatesAutoresizingMaskIntoConstraints = false
-        yearTextField.placeholder = "Year"
+//        yearTextField.placeholder = "Year"
         yearTextField.keyboardType = .numberPad
         yearTextField.delegate = self;
         yearTextField.backgroundColor = .white
