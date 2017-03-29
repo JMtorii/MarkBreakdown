@@ -50,8 +50,9 @@ class TermViewController: BaseTableViewController {
             }.addDisposableTo(disposeBag)
         
         tableView.rx
-            .modelSelected(Term.self).subscribe(onNext: { term in
-                // Do stuff here
+            .modelSelected(Term.self).subscribe(onNext: { [weak self] term in
+                let nextViewController = TermDetailViewConroller(term: term)
+                self?.navigationController?.pushViewController(nextViewController, animated: true)
             }).addDisposableTo(disposeBag)
     }
     
