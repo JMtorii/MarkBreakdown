@@ -11,9 +11,13 @@ import Foundation
 
 class PlaceholderTextField: UITextField {
     
+    fileprivate static let AccessiblePlaceholderTopDefaultPadding: CGFloat = 15.0
+    fileprivate static let AccessiblePlaceholderTopActivePadding: CGFloat = 5.0
+    
     fileprivate var accessiblePlaceholderLabel: UILabel!
     
     fileprivate var accessiblePlaceholderTopConstraint: NSLayoutConstraint!
+    
     
     override var text: String? {
         get {
@@ -86,14 +90,14 @@ extension PlaceholderTextField {
         accessiblePlaceholderLabel.translatesAutoresizingMaskIntoConstraints = false
         accessiblePlaceholderLabel.text = placeholderText
         accessiblePlaceholderLabel.alpha = 0.0
-        accessiblePlaceholderLabel.font = UIFont.systemFont(ofSize: 9, weight: UIFontWeightBold)
+        accessiblePlaceholderLabel.font = UIFont.systemFont(ofSize: 9, weight: UIFontWeightRegular)
         addSubview(accessiblePlaceholderLabel)
         
         // constraints
         let views: [String: AnyObject] = ["accessiblePlaceholderLabel": accessiblePlaceholderLabel]
         NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[accessiblePlaceholderLabel]-20-|", metrics: nil, views: views))
         
-        accessiblePlaceholderTopConstraint = NSLayoutConstraint.init(item: accessiblePlaceholderLabel, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 15.0)
+        accessiblePlaceholderTopConstraint = NSLayoutConstraint.init(item: accessiblePlaceholderLabel, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: PlaceholderTextField.AccessiblePlaceholderTopDefaultPadding)
         accessiblePlaceholderTopConstraint.isActive = true
         
         // finally set placeholder text
@@ -111,7 +115,7 @@ extension PlaceholderTextField {
         
         if text.characters.count > 0 && accessiblePlaceholderLabel.alpha == 0.0 {
             layoutIfNeeded()
-            accessiblePlaceholderTopConstraint.constant = 7.0
+            accessiblePlaceholderTopConstraint.constant = PlaceholderTextField.AccessiblePlaceholderTopActivePadding
             
             if isAnimated {
                 UIView.animate(withDuration: 0.3, animations: {
@@ -124,7 +128,7 @@ extension PlaceholderTextField {
             
         } else if text.characters.count == 0 && accessiblePlaceholderLabel.alpha == 1 {
             layoutIfNeeded()
-            accessiblePlaceholderTopConstraint.constant = 15.0
+            accessiblePlaceholderTopConstraint.constant = PlaceholderTextField.AccessiblePlaceholderTopDefaultPadding
             
             if isAnimated {
                 UIView.animate(withDuration: 0.3, animations: { 
