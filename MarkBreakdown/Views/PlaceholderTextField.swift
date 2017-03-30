@@ -12,7 +12,7 @@ import Foundation
 class PlaceholderTextField: UITextField {
     
     fileprivate static let AccessiblePlaceholderTopDefaultPadding: CGFloat = 15.0
-    fileprivate static let AccessiblePlaceholderTopActivePadding: CGFloat = 5.0
+    fileprivate static let AccessiblePlaceholderTopActivePadding: CGFloat = 9.0
     
     fileprivate var accessiblePlaceholderLabel: UILabel!
     
@@ -51,17 +51,17 @@ class PlaceholderTextField: UITextField {
     
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         super.textRect(forBounds: bounds)
-        return bounds.insetBy(dx: 0, dy: 2).offsetBy(dx: 20, dy: 4);
+        return bounds.insetBy(dx: 0, dy: 2).offsetBy(dx: 20, dy: 8);
     }
     
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
         super.editingRect(forBounds: bounds)
-        return bounds.insetBy(dx: 0, dy: 2).offsetBy(dx: 20, dy: 4);
+        return bounds.insetBy(dx: 0, dy: 2).offsetBy(dx: 20, dy: 8);
     }
 
     override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
         super.placeholderRect(forBounds: bounds)
-        return bounds.offsetBy(dx: 20, dy: 2);
+        return bounds.offsetBy(dx: 20, dy: 3);
     }
     
     override func caretRect(for position: UITextPosition) -> CGRect {
@@ -70,7 +70,7 @@ class PlaceholderTextField: UITextField {
             return caretRect
         }
         
-        return caretRect.offsetBy(dx: 0, dy: -3)
+        return caretRect.offsetBy(dx: 0, dy: -7)
     }
 }
 

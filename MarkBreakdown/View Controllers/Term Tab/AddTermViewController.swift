@@ -55,7 +55,7 @@ class AddTermViewController: BaseAddViewController {
         
         addSeparator(height: 0.5)
         
-        termNameTextField = PlaceholderTextField(placeholderText: "Term Name")
+        termNameTextField = PlaceholderTextField(placeholderText: "Term Name (max six characters)")
         termNameTextField.translatesAutoresizingMaskIntoConstraints = false
         termNameTextField.returnKeyType = .done
         termNameTextField.autocorrectionType = .no
