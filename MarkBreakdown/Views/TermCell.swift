@@ -53,6 +53,12 @@ class TermCell: UITableViewCell {
             yearLabel.text = "\(year)"
         }
         
+        if let dateModified = term.dateModified {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMM dd, yyyy "
+            dateModifiedLabel.text = "Last Modified: \(dateFormatter.string(from: dateModified))"
+        }
+        
         if let termName = term.termName {
             termNameLabel.text = termName
         }
@@ -91,7 +97,7 @@ class TermCell: UITableViewCell {
         
         yearLabel = UILabel()
         yearLabel.translatesAutoresizingMaskIntoConstraints = false
-        yearLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightThin)
+        yearLabel.font = UIFont.systemFont(ofSize: 20, weight: UIFontWeightThin)
         leftStackView.addArrangedSubview(yearLabel)
         
         dateModifiedLabel = UILabel()
@@ -101,7 +107,7 @@ class TermCell: UITableViewCell {
         
         termNameLabel = UILabel()
         termNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        termNameLabel.font = UIFont.systemFont(ofSize: 30, weight: UIFontWeightMedium)
+        termNameLabel.font = UIFont.systemFont(ofSize: 40, weight: UIFontWeightMedium)
         termNameLabel.textColor = .black
         leftStackView.addArrangedSubview(termNameLabel)
         

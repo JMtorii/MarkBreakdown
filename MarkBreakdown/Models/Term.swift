@@ -35,8 +35,8 @@ class Term : Mappable {
     func mapping(map: Map) {
         termName        <- map["termName"]
         year            <- map["year"]
-        dateAdded       <- map["dateAdded"]
-        dateModified    <- map["dateModified"]
+        dateAdded       <- (map["dateAdded"], DateTransform())
+        dateModified    <- (map["dateModified"], DateTransform())
         average         <- map["average"]
         courses         <- map["courses"]
     }
