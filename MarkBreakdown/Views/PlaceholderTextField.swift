@@ -83,6 +83,13 @@ extension PlaceholderTextField {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .white
         
+        let rightImageView = UIImageView(image: UIImage(named: "Valid"))
+        rightImageView.image = rightImageView.image?.withRenderingMode(.alwaysTemplate)
+        
+        rightView = rightImageView
+        rightView?.tintColor = UIColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
+        rightViewMode = .always
+        
         // placeholder
         accessiblePlaceholderLabel = UILabel()
         accessiblePlaceholderLabel.translatesAutoresizingMaskIntoConstraints = false
