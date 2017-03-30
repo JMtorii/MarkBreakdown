@@ -83,12 +83,17 @@ extension PlaceholderTextField {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .white
         
-        let rightImageView = UIImageView(image: UIImage(named: "Valid"))
-        rightImageView.image = rightImageView.image?.withRenderingMode(.alwaysTemplate)
-        
-        rightView = rightImageView
-        rightView?.tintColor = UIColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
+        // right view
         rightViewMode = .always
+        
+        let rightImageView = UIImageView(image: UIImage(named: "Valid"))
+        rightImageView.translatesAutoresizingMaskIntoConstraints = false
+        rightImageView.image = rightImageView.image?.withRenderingMode(.alwaysTemplate)
+        rightImageView.tintColor = UIColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
+
+        rightView = rightImageView
+//        rightView?.translatesAutoresizingMaskIntoConstraints = false
+//        rightView?.addSubview(rightImageView)
         
         // placeholder
         accessiblePlaceholderLabel = UILabel()
@@ -99,8 +104,11 @@ extension PlaceholderTextField {
         addSubview(accessiblePlaceholderLabel)
         
         // constraints
-        let views: [String: AnyObject] = ["accessiblePlaceholderLabel": accessiblePlaceholderLabel]
+        let views: [String: AnyObject] = ["accessiblePlaceholderLabel": accessiblePlaceholderLabel,
+                                          "rightView": rightView!]
         NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[accessiblePlaceholderLabel]-20-|", metrics: nil, views: views))
+        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:[rightView(==30)]", metrics: nil, views: views))
+        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "V:[rightView(==30)]", metrics: nil, views: views))
         
         accessiblePlaceholderTopConstraint = NSLayoutConstraint.init(item: accessiblePlaceholderLabel, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: PlaceholderTextField.AccessiblePlaceholderTopDefaultPadding)
         accessiblePlaceholderTopConstraint.isActive = true
