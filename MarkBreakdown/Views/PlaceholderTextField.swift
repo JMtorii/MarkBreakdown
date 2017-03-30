@@ -75,30 +75,33 @@ class PlaceholderTextField: UITextField {
 // MARK: helper methods
 extension PlaceholderTextField {
     fileprivate func setup(withPlaceholder placeholderText:String) {
+        removeTarget(nil, action: nil, for: .allEvents)
+        addTarget(self, action: #selector(valueChanged), for: .editingChanged)
+
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .white
-        
-        // left view
-//        let spacerView = UIView(frame: CGRect(x: 0, y: 0, width: 20.0, height: 10.0))
-//        leftViewMode = .always
-//        leftView = spacerView
         
         // placeholder
         accessiblePlaceholderLabel = UILabel()
         accessiblePlaceholderLabel.translatesAutoresizingMaskIntoConstraints = false
         accessiblePlaceholderLabel.text = placeholderText
         accessiblePlaceholderLabel.alpha = 0.0
+        accessiblePlaceholderLabel.font = UIFont.systemFont(ofSize: 9, weight: UIFontWeightBold)
         addSubview(accessiblePlaceholderLabel)
         
+        // constraints
         let views: [String: AnyObject] = ["accessiblePlaceholderLabel": accessiblePlaceholderLabel]
-        
         NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[accessiblePlaceholderLabel]-20-|", metrics: nil, views: views))
         
         accessiblePlaceholderTopConstraint = NSLayoutConstraint.init(item: accessiblePlaceholderLabel, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 15.0)
         accessiblePlaceholderTopConstraint.isActive = true
         
-        // set placeholder text
+        // finally set placeholder text
         placeholder = placeholderText
+    }
+    
+    func valueChanged() {
+        updatePlaceholder(isAnimated: true)
     }
     
     fileprivate func updatePlaceholder(isAnimated: Bool) {
