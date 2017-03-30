@@ -72,8 +72,6 @@ class PlaceholderTextField: UITextField {
         
         return caretRect.offsetBy(dx: 0, dy: -3)
     }
-    
-    
 }
 
 // MARK: helper methods

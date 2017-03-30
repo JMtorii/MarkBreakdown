@@ -8,8 +8,6 @@ PODS:
     - RxSwift (~> 3.3)
   - RxSwift (3.3.1)
   - StatefulViewController (3.0)
-  - SwiftLint (0.17.0)
-  - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
   - Charts
@@ -18,8 +16,6 @@ DEPENDENCIES:
   - RxCocoa (~> 3.0)
   - RxSwift (~> 3.0)
   - StatefulViewController (~> 3.0)
-  - SwiftLint
-  - SwiftyJSON (~> 3.0)
 
 SPEC CHECKSUMS:
   Charts: 0e84f4418e87dad6a9edde221fba37ebb51d3ba7
@@ -28,9 +24,7 @@ SPEC CHECKSUMS:
   RxCocoa: 7dcb7a1860fc9cd0e23dae67ab105fc2916670b6
   RxSwift: 8fc9f2de6275a9101d518444e00bf32f1a42caac
   StatefulViewController: 4803bf900d44de26074344998e10e041113b5931
-  SwiftLint: 9fb1dd71d5952d130f8c2fb60ae2e1475cf5d575
-  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: c7d83b54d9e9f975cac39c8d3f606c07545fff04
+PODFILE CHECKSUM: b440bd6995402b2f1209c3ed781625082b5bf534
 
 COCOAPODS: 1.2.0

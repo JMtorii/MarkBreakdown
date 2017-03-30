@@ -108,16 +108,20 @@ class AddTermViewController: BaseAddViewController {
     
     // TODO: prevent duplicates
     override func setupObservables() {
-        let termNameValid = termNameTextField.rx.text.throttle(throttleInterval, scheduler: MainScheduler.instance).map {
-            !($0?.isEmpty ?? true)
-        }
+        let termNameValid = termNameTextField.rx.text
+            .throttle(throttleInterval, scheduler: MainScheduler.instance)
+            .map { [weak self] text in
+                self?.isTermNameValid(text: text)
+            }
         
-        let yearValid = yearTextField.rx.text.throttle(throttleInterval, scheduler: MainScheduler.instance).map {
-            !($0?.isEmpty ?? true) && $0?.characters.count == 4
-        }
+        let yearValid = yearTextField.rx.text
+            .throttle(throttleInterval, scheduler: MainScheduler.instance)
+            .map { [weak self] text in
+                self?.isYearValid(text: text)
+            }
         
-        let everythingValid = Observable.combineLatest(termNameValid, yearValid) {
-            $0 && $1
+        let everythingValid = Observable.combineLatest(termNameValid, yearValid) { (condition0, condition1) in
+            condition0! && condition1!
         }
         
         everythingValid.bindTo(navigationItem.rightBarButtonItem!.rx.isEnabled).addDisposableTo(disposeBag)
@@ -145,14 +149,31 @@ class AddTermViewController: BaseAddViewController {
     }
 }
 
+// MARK: Validations
+extension AddTermViewController {
+    fileprivate func isTermNameValid(text: String?) -> Bool {
+        let termName = text ?? ""
+        return !termName.isEmpty && termName.characters.count <= 6
+    }
+    
+    fileprivate func isYearValid(text: String?) -> Bool {
+        let year = text ?? ""
+        return year.characters.count == 4
+    }
+}
+
+// MARK: UITextViewDelegate
 extension AddTermViewController: UITextViewDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if let text = textField.text {
             if (textField == yearTextField) {
+                let newLength = text.characters.count + string.characters.count - range.length
+                
                 let aSet = NSCharacterSet(charactersIn:"0123456789").inverted
                 let compSepByCharInSet = string.components(separatedBy: aSet)
                 let numberFiltered = compSepByCharInSet.joined(separator: "")
-                return string == numberFiltered && text.characters.count < 4
+                
+                return string == numberFiltered && newLength <= 4
             }
             
             return true
