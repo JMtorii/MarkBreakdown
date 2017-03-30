@@ -57,7 +57,6 @@ class AddTermViewController: BaseAddViewController {
         
         termNameTextField = PlaceholderTextField(placeholderText: "Term Name")
         termNameTextField.translatesAutoresizingMaskIntoConstraints = false
-//        termNameTextField.placeholder = "Term Name"
         termNameTextField.returnKeyType = .done
         termNameTextField.autocorrectionType = .no
         termNameTextField.delegate = self
@@ -69,10 +68,10 @@ class AddTermViewController: BaseAddViewController {
         
         yearTextField = PlaceholderTextField(placeholderText: "Year")
         yearTextField.translatesAutoresizingMaskIntoConstraints = false
-//        yearTextField.placeholder = "Year"
         yearTextField.keyboardType = .numberPad
-        yearTextField.delegate = self;
+        yearTextField.delegate = self
         yearTextField.backgroundColor = .white
+        yearTextField.text = "\(Calendar.current.component(.year, from: Date()))"
         textFields.append(yearTextField)
         stackView.addArrangedSubview(yearTextField)
         
