@@ -72,6 +72,12 @@ class PlaceholderTextField: UITextField {
         
         return caretRect.offsetBy(dx: 0, dy: -7)
     }
+    
+    override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
+        var rect = super.rightViewRect(forBounds: bounds)
+        rect.origin.x -= 10.0
+        return rect
+    }
 }
 
 // MARK: helper methods
@@ -90,10 +96,7 @@ extension PlaceholderTextField {
         rightImageView.translatesAutoresizingMaskIntoConstraints = false
         rightImageView.image = rightImageView.image?.withRenderingMode(.alwaysTemplate)
         rightImageView.tintColor = UIColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
-
         rightView = rightImageView
-//        rightView?.translatesAutoresizingMaskIntoConstraints = false
-//        rightView?.addSubview(rightImageView)
         
         // placeholder
         accessiblePlaceholderLabel = UILabel()
