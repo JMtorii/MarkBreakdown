@@ -186,3 +186,9 @@ extension AddTermViewController: UITextViewDelegate {
         return false
     }
 }
+
+extension AddTermViewController: PlaceholderTextFieldDelegate {
+    func isTextFieldTextValid(_ textField: PlaceholderTextField) -> Bool {
+        return true
+    }
+}
