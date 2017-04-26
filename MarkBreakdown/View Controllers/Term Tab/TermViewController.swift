@@ -11,17 +11,19 @@ import RxSwift
 import RxCocoa
 import StatefulViewController
 
-class TermViewController: BaseTableViewController {
+class TermViewController: BaseSplitTableViewController {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setTopViewHeight(10.0)
-    }
+    var viewModel: TermViewModel = TermViewModel()
     
-    override func setupData() {
-        PersistenceKit.readFromDevice()
-    }
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        
+//        setTopViewHeight(10.0)
+//    }
+    
+//    override func setupData() {
+//        PersistenceKit.readFromDevice()
+//    }
     
     override func setupNavigationBar() {
         super.setupNavigationBar()
@@ -37,10 +39,11 @@ class TermViewController: BaseTableViewController {
         super.setupView()
         
         topView.backgroundColor = UIColor(white: 0.96, alpha: 1.0)
+        setTopViewHeight(10.0)
+        tableView.separatorColor = UIColor(white: 0.96, alpha: 1.0)
     }
     
     override func setupCellConfiguration() {
-        tableView.separatorColor = UIColor(white: 0.96, alpha: 1.0)
         tableView.register(TermCell.self, forCellReuseIdentifier: TermCell.Identifier)
         
         SchoolManager.sharedInstance.school.termsObservable.asObservable()

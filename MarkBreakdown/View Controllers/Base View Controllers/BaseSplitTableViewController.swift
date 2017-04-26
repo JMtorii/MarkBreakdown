@@ -11,20 +11,14 @@ import RxSwift
 import RxCocoa
 import StatefulViewController
 
-class BaseTableViewController: UIViewController {
+class BaseSplitTableViewController: BaseSplitViewController {
     
-    var topView: UIView!
     var tableView: UITableView!
-    
-    var disposeBag = DisposeBag()
-    
-    fileprivate var topViewHeightConstraint: NSLayoutConstraint = NSLayoutConstraint()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupData()
         setupNavigationBar()
         setupEmptyView()
         setupView()
@@ -39,12 +33,8 @@ class BaseTableViewController: UIViewController {
     
     // MARK: Setup
     
-    func setupData() {
-        // Nothing to do here
-    }
-    
     func setupNavigationBar() {
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(TermViewController.addButtonTapped))
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(BaseSplitTableViewController.addButtonTapped))
         
         navigationItem.rightBarButtonItems = [addButton]
     }
@@ -60,11 +50,6 @@ class BaseTableViewController: UIViewController {
         
         navigationController?.navigationBar.isTranslucent = false
         
-        topView = UIView()
-        topView.translatesAutoresizingMaskIntoConstraints = false
-        topView.backgroundColor = .white
-        view.addSubview(topView)
-        
         tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
@@ -73,7 +58,7 @@ class BaseTableViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 70.0;
         tableView.tableFooterView = UIView(frame: CGRect.zero)
-        view.addSubview(tableView)
+        bottomView.addSubview(tableView)
         
         setupContraints()
     }
@@ -82,28 +67,24 @@ class BaseTableViewController: UIViewController {
         // Nothing to do here
     }
     
+    func addButtonTapped(Sender: UIButton) {
+        
+    }
+    
     private func setupContraints() {
         var layoutContraints = [NSLayoutConstraint]()
-        let views: [String: AnyObject] = ["topView": topView,
-                                          "tableView": tableView]
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|[topView]|", metrics: nil, views: views)))
+        let views: [String: AnyObject] = ["tableView": tableView]
         layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "H:|[tableView]|", metrics: nil, views: views)))
-        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|[topView][tableView]|", metrics: nil, views: views)))
+        layoutContraints.append(contentsOf:(NSLayoutConstraint.constraints(withVisualFormat: "V:|[tableView]|", metrics: nil, views: views)))
         
         topViewHeightConstraint = NSLayoutConstraint(item: topView, attribute: .height, relatedBy: .equal, toItem: self.view, attribute: .height, multiplier: 0.5, constant: 0.0)
         layoutContraints.append(topViewHeightConstraint)
         
         NSLayoutConstraint.activate(layoutContraints)
     }
-    
-    
-    // MARK: Navigation bar button actions
-    func addButtonTapped(sender: UIButton) {
-        // Nothing to do here
-    }
 }
 
-extension BaseTableViewController: UITableViewDelegate {
+extension BaseSplitTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .none
     }
@@ -111,7 +92,7 @@ extension BaseTableViewController: UITableViewDelegate {
 }
 
 // MARK: Top view
-extension BaseTableViewController {
+extension BaseSplitTableViewController {
     func setTopViewHeight(_ height: CGFloat) {
         topViewHeightConstraint.isActive = false
         topViewHeightConstraint = NSLayoutConstraint(item: topView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: height)
@@ -125,7 +106,7 @@ extension BaseTableViewController {
 }
 
 // MARK: StatefulViewController delegates
-extension BaseTableViewController: StatefulViewController {
+extension BaseSplitTableViewController: StatefulViewController {
     func hasContent() -> Bool {
         return false;
     }
